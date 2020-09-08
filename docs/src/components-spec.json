@@ -320,5 +320,9 @@
       "input": "Standard Event",
       "submit": "Standard Event"
     }
+  },
+  "gux-flyout-menu": {
+    "attributes": {},
+    "events": {}
   }
 }
