@@ -10,7 +10,7 @@ export class GuxFlyoutMenu {
 
   render() {
     return (
-      <div class="gux-flyout-menu-content">
+      <div class="gux-flyout-content">
         <slot />
       </div>
     );

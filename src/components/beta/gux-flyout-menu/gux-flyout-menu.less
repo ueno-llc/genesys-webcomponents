@@ -3,7 +3,58 @@
 // Style
 gux-flyout-menu-beta {
   display: block;
-  padding: 16px;
+  padding: 16px 0;
   background-color: #fdfdfd;
-  box-shadow: 0 0 1px 0 rgba(218, 225, 232, 0.5);
+  box-shadow: 0 0 5px 0 rgba(218, 225, 232, 1);
+  max-width: 185px;
+  position: relative;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  &::after {
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 11px solid #ffffff;
+    top: -11px;
+    left: 10px;
+  }
+
+  &::before {
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 12px solid rgba(218, 225, 232, 0.8);
+    top: -12px;
+    left: 9px;
+  }
+
+  .gux-flyout {
+    &-content {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  gux-flyout-option {
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    font-family: Roboto;
+    font-size: 12px;
+    line-height: 32px;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: #2A60C8;
+      color: #ffffff;
+      outline: none;
+      cursor: pointer;
+    }
+  }
 }
