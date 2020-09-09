@@ -85,6 +85,7 @@ gux-table-beta {
     }
 
     .gux-table-container {
+      max-height: 100%;
       overflow-x: hidden;
       overflow-y: auto;
       scrollbar-color: @gux-table-scroll-thumb @gux-off-white;
@@ -143,9 +144,24 @@ gux-table-beta {
             }
 
             gux-icon {
+              display: none;
               position: absolute;
               right: 6px;
               top: 13px;
+            }
+          }
+
+          th:hover {
+            .gux-column-sort-arrow-down {
+              color: @gux-icons;
+              display: block;
+            }
+          }
+
+          th[data-cell-action],
+          th[data-cell-numeric] {
+            gux-icon {
+              left: 6px;
             }
           }
 
@@ -156,9 +172,25 @@ gux-table-beta {
           }
 
           th[data-sort-direction="asc"] {
+            .gux-column-sort-arrow-down {
+              color: @gux-grey-2;
+              display: block;
+            }
+
+            .gux-column-sort-arrow-up {
+              display: none !important;
+            }
           }
 
           th[data-sort-direction="desc"] {
+            .gux-column-sort-arrow-up {
+              color: @gux-grey-2;
+              display: block;
+            }
+
+            .gux-column-sort-arrow-down {
+              display: none !important;
+            }
           }
         }
 
@@ -175,10 +207,6 @@ gux-table-beta {
     }
 
     &.vertical-scroll {
-      .gux-table-container {
-        max-height: 100%;
-      }
-
       thead {
         th {
           border-bottom-color: @gux-table-scroll-divider;

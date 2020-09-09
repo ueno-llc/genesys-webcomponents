@@ -15,6 +15,13 @@
 | `objectTable`  | `object-table`  | Indicates that object table specific styles should be applied    | `boolean` | `false`     |
 
 
+## Events
+
+| Event         | Description                                               | Type               |
+| ------------- | --------------------------------------------------------- | ------------------ |
+| `sortChanged` | Triggers when the sorting of the table column is changed. | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Depends on
