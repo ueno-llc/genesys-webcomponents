@@ -9,6 +9,7 @@
 
 | Property       | Attribute       | Description                                                      | Type      | Default     |
 | -------------- | --------------- | ---------------------------------------------------------------- | --------- | ----------- |
+| `columnsOrder` | `columns-order` | Indicates columns in order they should be displayed              | `string`  | `undefined` |
 | `compact`      | `compact`       | Indicates table row density style                                | `boolean` | `false`     |
 | `emptyMessage` | `empty-message` | Represents info message that should be displayed for empty table | `string`  | `undefined` |
 | `objectTable`  | `object-table`  | Indicates that object table specific styles should be applied    | `boolean` | `false`     |

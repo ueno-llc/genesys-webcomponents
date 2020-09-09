@@ -76,6 +76,12 @@ export class GuxTable {
   @Prop()
   emptyMessage: string;
 
+  /**
+   * Indicates columns in order they should be displayed
+   */
+  @Prop()
+  columnsOrder: string;
+
   @Listen('scroll', { capture: true })
   onScroll(): void {
     const scrollLeft = this.tableContainer.querySelector('.gux-table-container')
@@ -191,10 +197,123 @@ export class GuxTable {
     ).scrollLeft = Math.ceil(columnsWidth - containerWidth);
   }
 
+  private setRowsCellsNames(): void {
+    const columnsElements = Array.from(
+      this.tableContainer.querySelectorAll('thead th')
+    );
+    const rowsElements = Array.from(
+      this.tableContainer.querySelectorAll('tbody tr')
+    );
+
+    rowsElements.map(row => {
+      Array.from(row.querySelectorAll('td')).forEach((cell, cellIndex) => {
+        cell.setAttribute(
+          'data-column-name',
+          columnsElements[cellIndex].getAttribute('data-column-name')
+        );
+      });
+    });
+  }
+
+  /* private changeColumnSorting(column: TableHeaderCell): void {
+    switch (column.sortDirection) {
+      case '':
+        column.sortDirection = 'asc';
+        break;
+      case 'asc':
+        column.sortDirection = 'desc';
+        break;
+      case 'desc':
+        column.sortDirection = '';
+        break;
+    }
+
+    this.columns = [...this.columns]; // FIND MORE ELEGANT SOLUTION!!!!!
+    this.sortChanged.emit({
+      columnName: column.name,
+      sortDirection: column.sortDirection
+    });
+  } */
+
+  // @Listen('click', { target: 'window' })
+  // onClick(e: MouseEvent): void {
+  //   const element = e.target as HTMLElement;
+
+  //   if (!this.root.contains(element as Node)) {
+  //     this.setOpened(false);
+  //   }
+  // }
+
+  // componentDidLoad() {
+  //   this.root.onfocus = () => this.onFocus.emit(this.text);
+  //   this.root.onclick = () => {
+  //     this.onItemClicked();
+  //   };
+
+  //   this.root.onkeydown = (e: KeyboardEvent) => {
+  //     switch (e.key) {
+  //       case ' ':
+  //       case 'Enter':
+  //         this.selectedChanged.emit(this.value ? this.value : this.text);
+  //         break;
+  //     }
+  //   };
+  // }
+
+  private prepareSortableColumns(): void {
+    const columnsElements = Array.from(
+      this.tableContainer.querySelectorAll('thead th')
+    );
+    const downArrow = document.createElement('gux-icon');
+    const upArrow = document.createElement('gux-icon');
+    const sortingHiglight = document.createElement('div');
+
+    downArrow.setAttribute('icon-name', 'ic-arrow-solid-down');
+    downArrow.setAttribute('screenreader-text', 'test');
+    downArrow.setAttribute('class', 'gux-column-sort-arrow-down');
+
+    upArrow.setAttribute('icon-name', 'ic-arrow-solid-up');
+    upArrow.setAttribute('screenreader-text', 'test');
+    upArrow.setAttribute('class', 'gux-column-sort-arrow-up');
+
+    sortingHiglight.setAttribute('class', 'gux-column-sort-highlight');
+
+    columnsElements.forEach((column: HTMLElement) => {
+      if (column.dataset.hasOwnProperty('sortable')) {
+        column.appendChild(downArrow.cloneNode(true));
+        column.appendChild(upArrow.cloneNode(true));
+        column.appendChild(sortingHiglight.cloneNode(true));
+        column.onclick = (event: MouseEvent) => {
+          const columnElement = event.target as HTMLElement;
+          const sortDirection = columnElement.dataset.sortDirection || '';
+
+          switch (sortDirection) {
+            case '':
+              columnElement.setAttribute('data-sort-direction', 'asc');
+              break;
+            case 'asc':
+              columnElement.setAttribute('data-sort-direction', 'desc');
+              break;
+            case 'desc':
+              columnElement.removeAttribute('data-sort-direction');
+              break;
+          }
+
+          // console.log('SORT DIRECTION: ', column.dataset.sortDirection)
+        };
+      }
+    });
+  }
+
   private prepareTableData(): void {
-    this.columns = Array.from(
-      this.tableContainer.querySelectorAll('.gux-table-container thead th')
-    ).map((column: HTMLElement, index: number) => {
+    const columnsElements = Array.from(
+      this.tableContainer.querySelectorAll('thead th')
+    );
+    const rowsElements = Array.from(
+      this.tableContainer.querySelectorAll('tbody tr')
+    );
+
+    this.columns = columnsElements.map((column: HTMLElement, index: number) => {
       return {
         name: column.dataset.columnName || index.toString(),
         sortable: column.dataset.hasOwnProperty('sortable'),
@@ -202,9 +321,7 @@ export class GuxTable {
       };
     });
 
-    this.rows = Array.from(
-      this.tableContainer.querySelectorAll('.gux-table-container tbody tr')
-    ).map((row, rowIndex) => {
+    this.rows = rowsElements.map((row, rowIndex) => {
       Array.from(row.querySelectorAll('td')).forEach((cell, cellIndex) => {
         cell.setAttribute('data-row', rowIndex.toString());
         cell.setAttribute('data-row-cell', cellIndex.toString());
@@ -213,6 +330,43 @@ export class GuxTable {
       return {
         selected: false
       };
+    });
+  }
+
+  private reorderColumns(): void {
+    const columnsOrder = this.columnsOrder.split(' ');
+    const tableHead = this.tableContainer.querySelector('thead tr');
+    const tableBody = this.tableContainer.querySelectorAll('tbody tr');
+    const reorderedColumns = [];
+
+    columnsOrder.forEach(columnName => {
+      reorderedColumns.push(
+        Array.from(tableHead.children).find(el => {
+          return el.getAttribute('data-column-name') === columnName;
+        })
+      );
+    });
+
+    tableHead.innerHTML = '';
+    reorderedColumns.forEach(el => {
+      tableHead.appendChild(el);
+    });
+
+    tableBody.forEach(row => {
+      const reorderedRowCells = [];
+
+      columnsOrder.forEach(columnName => {
+        reorderedRowCells.push(
+          Array.from(row.children).find(el => {
+            return el.getAttribute('data-column-name') === columnName;
+          })
+        );
+      });
+
+      row.innerHTML = '';
+      reorderedRowCells.forEach(el => {
+        row.appendChild(el);
+      });
     });
   }
 
@@ -231,10 +385,17 @@ export class GuxTable {
 
   async componentWillLoad(): Promise<void> {
     this.i18n = await buildI18nForComponent(this.root, tableResources);
-
     if (!this.emptyMessage) {
       this.emptyMessage = this.i18n('emptyMessage');
     }
+
+    this.setRowsCellsNames();
+
+    if (this.columnsOrder) {
+      this.reorderColumns();
+    }
+
+    this.prepareSortableColumns();
 
     setTimeout(() => {
       this.prepareTableData();
@@ -248,14 +409,14 @@ export class GuxTable {
         });
       }
 
-      this.resizeObserver?.observe(
+      this.resizeObserver.observe(
         this.tableContainer.querySelector('.gux-table-container table')
       );
     });
   }
 
   disconnectedCallback(): void {
-    this.resizeObserver?.unobserve(
+    this.resizeObserver.unobserve(
       this.tableContainer.querySelector('.gux-table-container table')
     );
   }

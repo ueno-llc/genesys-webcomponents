@@ -126,10 +126,40 @@ gux-table-beta {
       }
 
       table {
-        th {
-          position: sticky;
-          top: 0;
-          background: @gux-off-white;
+        thead {
+          th {
+            position: sticky;
+            top: 0;
+            background: @gux-off-white;
+
+            .gux-column-sort-highlight {
+              background: @gux-blue;
+              bottom: 0;
+              display: none;
+              height: 4px;
+              left: 0px;
+              position: absolute;
+              width: 100%;
+            }
+
+            gux-icon {
+              position: absolute;
+              right: 6px;
+              top: 13px;
+            }
+          }
+
+          th[data-sort-direction] {
+            .gux-column-sort-highlight {
+              display: block;
+            }
+          }
+
+          th[data-sort-direction="asc"] {
+          }
+
+          th[data-sort-direction="desc"] {
+          }
         }
 
         tbody {
