@@ -10,15 +10,31 @@
   </div>
   <div style="margin-left: 20px;">
     <gux-flyout-menu-beta>
-      <gux-flyout-option-menu 
-        has-Inner-Option 
-        name="Option One >" 
-        second-name="inner Option >"
+      <gux-flyout-option-menu
+        with-icon
+        has-Inner-Option
+        icon-name="angle-right"
+        name="Option One"
+        second-name="inner Option"
+      >
+        <gux-flyout-option-menu icon-name="angle-right" name="Option One"></gux-flyout-option-menu>
+        <gux-flyout-option-menu></gux-flyout-option-menu>
+        <gux-flyout-option-menu></gux-flyout-option-menu>
+        <gux-flyout-option-menu></gux-flyout-option-menu>
+      </gux-flyout-option-menu>
+      <gux-flyout-option-menu
+        with-icon
+        icon-name="angle-right"
+        has-Inner-Option
+        name="Option Two"
+        second-name="inner Option"
       ></gux-flyout-option-menu>
-      <gux-flyout-option-menu 
-        has-Inner-Option 
-        name="Option One >" 
-        second-name="inner Option >"
+      <gux-flyout-option-menu
+        with-icon
+        icon-name="angle-right"
+        has-Inner-Option
+        name="Option Three"
+        second-name="inner Option"
       ></gux-flyout-option-menu>
     </gux-flyout-menu-beta>
   </div>

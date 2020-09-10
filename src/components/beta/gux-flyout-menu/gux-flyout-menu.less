@@ -6,7 +6,7 @@ gux-flyout-menu-beta {
   padding: 16px 0;
   background-color: #fdfdfd;
   box-shadow: 0 0 5px 0 rgba(218, 225, 232, 1);
-  max-width: 185px;
+  min-width: 185px;
   position: relative;
 
   &::after,
@@ -32,14 +32,14 @@ gux-flyout-menu-beta {
     top: -12px;
     left: 9px;
   }
-  
+
   .gux-flyout {
     &-content {
       display: flex;
       flex-direction: column;
     }
   }
-  
+
   gux-flyout-option,
   gux-flyout-option-menu {
     padding: 0 16px;
@@ -48,7 +48,7 @@ gux-flyout-menu-beta {
     font-family: Roboto;
     font-size: 12px;
     line-height: 32px;
-    
+
     &:hover,
     &:active,
     &:focus {
@@ -58,23 +58,36 @@ gux-flyout-menu-beta {
       cursor: pointer;
     }
   }
-  
+
   gux-flyout-option-menu {
     position: relative;
-    width: 100px;
+    width: 100%;
+    box-sizing: border-box;
     height: auto;
+
+    &::after {
+      content: '';
+    }
+
+    .main-menu-options {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     .menu-options {
       position: absolute;
       left: 100%;
       top: 0;
       width: 100%;
-      text-align: center;
       display: none;
       color: black;
 
       &_active {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
       gux-flyout-menu-beta {
@@ -84,6 +97,5 @@ gux-flyout-menu-beta {
         }
       }
     }
-
   }
 }
