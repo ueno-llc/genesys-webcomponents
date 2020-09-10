@@ -13,15 +13,9 @@ export class GuxFlyoutOptionMenu {
   @Prop() withIcon: boolean;
   @Prop() iconName = 'angle-right';
 
-  @Listen('mouseover')
   @Listen('click')
   isActive(): void {
-    this.active = true;
-  }
-
-  @Listen('mouseout')
-  isLeave() {
-    this.active = false;
+    this.active = !this.active;
   }
 
   private isMenuVisible = () =>
@@ -35,14 +29,13 @@ export class GuxFlyoutOptionMenu {
   private optionBuilderWithInnerOption = () => (
     <div class="menu-inner-option">
       <slot>{this.name}</slot>
-      {this.optionBuilder(this.secondName)}
+      {this.optionBuilder()}
     </div>
   );
 
-  private optionBuilder = (name?: string) => (
+  private optionBuilder = () => (
     <gux-flyout-option class={this.isMenuVisible()}>
-      {name ? name : this.name}
-      {this.isIcon(this.iconName)}
+      <slot />
     </gux-flyout-option>
   );
 

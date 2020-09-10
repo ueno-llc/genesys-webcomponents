@@ -15,26 +15,25 @@
         has-Inner-Option
         icon-name="angle-right"
         name="Option One"
-        second-name="inner Option"
       >
-        <gux-flyout-option-menu icon-name="angle-right" name="Option One"></gux-flyout-option-menu>
-        <gux-flyout-option-menu></gux-flyout-option-menu>
-        <gux-flyout-option-menu></gux-flyout-option-menu>
-        <gux-flyout-option-menu></gux-flyout-option-menu>
+        <div class="gux-flyout-inner-content">
+          <gux-flyout-option-menu with-icon icon-name="angle-right" name="Option One">Option One</gux-flyout-option-menu>
+          <gux-flyout-option-menu with-icon icon-name="angle-right" name="Option Two">Option Two</gux-flyout-option-menu>
+          <gux-flyout-option-menu with-icon icon-name="angle-right" name="Option Three">Option Three</gux-flyout-option-menu>
+          <gux-flyout-option-menu with-icon icon-name="angle-right" name="Option Four">Option Four</gux-flyout-option-menu>
+        </div>
       </gux-flyout-option-menu>
       <gux-flyout-option-menu
         with-icon
         icon-name="angle-right"
         has-Inner-Option
         name="Option Two"
-        second-name="inner Option"
       ></gux-flyout-option-menu>
       <gux-flyout-option-menu
         with-icon
         icon-name="angle-right"
         has-Inner-Option
         name="Option Three"
-        second-name="inner Option"
       ></gux-flyout-option-menu>
     </gux-flyout-menu-beta>
   </div>

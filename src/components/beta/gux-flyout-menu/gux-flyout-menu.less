@@ -52,7 +52,7 @@ gux-flyout-menu-beta {
     &:hover,
     &:active,
     &:focus {
-      background-color: #2A60C8;
+      background: #2A60C8;
       color: #ffffff;
       outline: none;
       cursor: pointer;
@@ -64,6 +64,7 @@ gux-flyout-menu-beta {
     width: 100%;
     box-sizing: border-box;
     height: auto;
+    color: #000000;
 
     &::after {
       content: '';
@@ -77,25 +78,47 @@ gux-flyout-menu-beta {
     }
 
     .menu-options {
+      display: none;
       position: absolute;
       left: 100%;
       top: 0;
       width: 100%;
-      display: none;
-      color: black;
 
       &_active {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
+        display: block;
+        box-shadow: 0 0 5px 0 rgba(218, 225, 232, 1);
+        padding: 0;
 
-      gux-flyout-menu-beta {
-        &::after,
-        &::before {
-          content: none;
+        &:active,
+        &:hover,
+        &:focus {
+          background: none;
+        }
+
+        gux-flyout-option-menu .menu-options {
+          display: block;
+          padding: 0;
         }
       }
+    }
+
+    .gux-flyout-inner-content {
+      .menu-options {
+        position: static;
+      }
+
+      //&_active {
+      //  display: flex;
+      //  justify-content: space-between;
+      //  align-items: center;
+      //}
+
+      //gux-flyout-menu-beta {
+      //  &::after,
+      //  &::before {
+      //    content: none;
+      //  }
+      //}
     }
   }
 }
