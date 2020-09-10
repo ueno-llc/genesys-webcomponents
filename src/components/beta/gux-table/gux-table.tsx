@@ -22,6 +22,14 @@ export class GuxTable {
 
   private resizeObserver: ResizeObserver;
 
+  private resizableColumn: HTMLElement | null;
+
+  private columnResizeStartOffset: number;
+
+  startX: number;
+
+  startWidth: number;
+
   private i18n: GetI18nValue;
 
   /**
@@ -89,6 +97,28 @@ export class GuxTable {
       this.isScrolledToFirstCell = true;
     } else if (maxScrollLeft - scrollLeft - this.tableScrollbarConstant === 0) {
       this.isScrolledToLastCell = true;
+    }
+  }
+
+  @Listen('mouseup', { capture: true })
+  onMouseUp(): void {
+    if (this.resizableColumn) {
+      this.resizableColumn = null;
+      this.tableContainer.classList.remove('column-resizing');
+    }
+    // console.log('Mouse Up!!!!')
+  }
+
+  @Listen('mousemove', { capture: true })
+  onMouseMove(event: MouseEvent): void {
+    if (this.resizableColumn) {
+      // console.log('NEW COLUMN WIDTH: ', this.columnResizeStartOffset + event.pageX + 'px')
+      // this.resizableColumn.style.maxWidth = this.columnResizeStartOffset + event.pageX + 'px';
+
+      // this.resizableColumn.style.width = this.columnResizeStartOffset + event.pageX + 'px';
+
+      this.resizableColumn.style.width =
+        this.startWidth + (event.pageX - this.startX) + 'px';
     }
   }
 
@@ -276,6 +306,78 @@ export class GuxTable {
     });
   }
 
+  private prepareResizableColumns(): void {
+    const columnsElements = Array.from(
+      this.tableContainer.querySelectorAll('thead th')
+    );
+
+    const resizeElement = document.createElement('div');
+    resizeElement.setAttribute('class', 'gux-column-resize');
+
+    columnsElements.forEach((column: HTMLElement) => {
+      const columnResizeElement = resizeElement.cloneNode(true);
+      columnResizeElement.addEventListener('mousedown', (event: MouseEvent) => {
+        const currentElement = event.target as HTMLElement;
+
+        this.resizableColumn = currentElement.parentNode as HTMLElement;
+
+        ///////
+        this.columnResizeStartOffset =
+          this.resizableColumn.offsetWidth - event.pageX - 37;
+        // console.log('RESIZE OFFSET: ', this.resizableColumn.offsetWidth - event.pageX - 37)
+        /////////
+        this.startX = event.pageX;
+        this.startWidth = this.resizableColumn.clientWidth - 12 - 24;
+        // console.log('OFFSET WIDTH: ', this.resizableColumn.offsetWidth)
+        // console.log('CLIENT WIDTH: ', this.resizableColumn.clientWidth)
+        /////////
+
+        // console.log('TABLE CONTAINER: ', this.tableContainer);
+        this.tableContainer.classList.add('column-resizing');
+
+        event.preventDefault();
+        event.stopPropagation();
+        // console.log('CELL BORDER RESIZE CLICKED!!!!', currentElement.parentNode)
+      });
+
+      column.appendChild(columnResizeElement);
+    });
+
+    // var thElm;
+    // var startOffset;
+
+    // Array.prototype.forEach.call(
+    //   document.querySelectorAll("table th"),
+    //   function (th) {
+    //     th.style.position = 'relative';
+
+    //     var grip = document.createElement('div');
+    //     grip.innerHTML = "&nbsp;";
+    //     grip.style.top = 0;
+    //     grip.style.right = 0;
+    //     grip.style.bottom = 0;
+    //     grip.style.width = '5px';
+    //     grip.style.position = 'absolute';
+    //     grip.style.cursor = 'col-resize';
+    //     grip.addEventListener('mousedown', function (e) {
+    //       thElm = th;
+    //       startOffset = th.offsetWidth - e.pageX;
+    //     });
+
+    //     th.appendChild(grip);
+    //   });
+
+    // document.addEventListener('mousemove', function (e) {
+    //   if (thElm) {
+    //     thElm.style.width = startOffset + e.pageX + 'px';
+    //   }
+    // });
+
+    // document.addEventListener('mouseup', function () {
+    //   thElm = undefined;
+    // });
+  }
+
   // private prepareTableData(): void {
   //   const columnsElements = Array.from(
   //     this.tableContainer.querySelectorAll('thead th')
@@ -375,6 +477,7 @@ export class GuxTable {
     }
 
     this.prepareSortableColumns();
+    this.prepareResizableColumns();
 
     setTimeout(() => {
       this.checkHorizontalScroll();
