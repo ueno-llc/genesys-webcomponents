@@ -1,7 +1,25 @@
-<gux-flyout-menu-beta>
-  <gux-flyout-option><span>Option One</span> <span>Crl+Alt+A</span></gux-flyout-option>
-  <gux-flyout-option><span>Option Two</span> <span>Crl+Alt+C</span></gux-flyout-option>
-  <gux-flyout-option><span>Option Three</span> <span>Shift+A</span></gux-flyout-option>
-  <gux-flyout-option><span>Option Four</span> <span>⌘A</span></gux-flyout-option>
-  <gux-flyout-option><span>Option Five</span> <span>⌘⇧A</span></gux-flyout-option>
-</gux-flyout-menu-beta>
+<div style="display: flex;">
+  <div style="margin-left: 20px;">
+    <gux-flyout-menu-beta>
+      <gux-flyout-option><span>Option One</span> <span>Crl+Alt+A</span></gux-flyout-option>
+      <gux-flyout-option><span>Option Two</span> <span>Crl+Alt+C</span></gux-flyout-option>
+      <gux-flyout-option><span>Option Three</span> <span>Shift+A</span></gux-flyout-option>
+      <gux-flyout-option><span>Option Four</span> <span>⌘A</span></gux-flyout-option>
+      <gux-flyout-option><span>Option Five</span> <span>⌘⇧A</span></gux-flyout-option>
+    </gux-flyout-menu-beta>
+  </div>
+  <div style="margin-left: 20px;">
+    <gux-flyout-menu-beta>
+      <gux-flyout-option-menu 
+        has-Inner-Option 
+        name="Option One >" 
+        second-name="inner Option >"
+      ></gux-flyout-option-menu>
+      <gux-flyout-option-menu 
+        has-Inner-Option 
+        name="Option One >" 
+        second-name="inner Option >"
+      ></gux-flyout-option-menu>
+    </gux-flyout-menu-beta>
+  </div>
+</div>

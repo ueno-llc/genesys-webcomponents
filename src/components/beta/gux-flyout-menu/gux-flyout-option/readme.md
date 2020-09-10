@@ -21,6 +21,19 @@
 | `selectedChanged` | Occurs when the item has been selected. | `CustomEvent<string>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [gux-flyout-option-menu](../gux-flyout-option-menu)
+
+### Graph
+```mermaid
+graph TD;
+  gux-flyout-option-menu --> gux-flyout-option
+  style gux-flyout-option fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

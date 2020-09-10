@@ -32,22 +32,23 @@ gux-flyout-menu-beta {
     top: -12px;
     left: 9px;
   }
-
+  
   .gux-flyout {
     &-content {
       display: flex;
       flex-direction: column;
     }
   }
-
-  gux-flyout-option {
+  
+  gux-flyout-option,
+  gux-flyout-option-menu {
     padding: 0 16px;
     display: flex;
     justify-content: space-between;
     font-family: Roboto;
     font-size: 12px;
     line-height: 32px;
-
+    
     &:hover,
     &:active,
     &:focus {
@@ -56,5 +57,33 @@ gux-flyout-menu-beta {
       outline: none;
       cursor: pointer;
     }
+  }
+  
+  gux-flyout-option-menu {
+    position: relative;
+    width: 100px;
+    height: auto;
+
+    .menu-options {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 100%;
+      text-align: center;
+      display: none;
+      color: black;
+
+      &_active {
+        display: block;
+      }
+
+      gux-flyout-menu-beta {
+        &::after,
+        &::before {
+          content: none;
+        }
+      }
+    }
+
   }
 }
