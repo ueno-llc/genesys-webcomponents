@@ -29,6 +29,19 @@ This component aggregates events and selection logic for `gux-radio` components.
 | `input` | Fires when the selected radio value changes, with the groups new value. | `CustomEvent<any>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [gux-summary-palette-section](../../beta/gux-summary-palette/summary-palette-section)
+
+### Graph
+```mermaid
+graph TD;
+  gux-summary-palette-section --> gux-radio-group
+  style gux-radio-group fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

@@ -30,6 +30,19 @@ See documentation for the `gux-radio-group` documentation for a more thourough e
 | `check` | Fired when the checked status of the radio changes. | `CustomEvent<boolean>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [gux-summary-palette-section](../../beta/gux-summary-palette/summary-palette-section)
+
+### Graph
+```mermaid
+graph TD;
+  gux-summary-palette-section --> gux-radio
+  style gux-radio fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
