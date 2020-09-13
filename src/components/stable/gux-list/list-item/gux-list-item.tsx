@@ -28,16 +28,16 @@ export class GuxListItem {
   value: any;
 
   /**
-   * How the item should be highlighted.
-   */
-  @Prop()
-  strategy: GuxTextHighlightStrategy;
-
-  /**
    * Emits when the list item is clicked, or enter/space is pressed.
    */
   @Event()
   press: EventEmitter<any>;
+
+  /**
+   * How the item should be highlighted.
+   */
+  @Prop()
+  strategy: GuxTextHighlightStrategy;
 
   @Listen('click')
   handleClick() {

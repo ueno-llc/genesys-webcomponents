@@ -51,6 +51,19 @@ gux-flyout-menu-beta {
     height: auto;
     color: #000000;
 
+    .gux-flyout-inner-content {
+      box-shadow: 0 0 5px 0 rgba(218, 225, 232, 1);
+      padding: 0;
+      position: absolute;
+      top: 0;
+      left: 100%;
+      min-width: 185px;
+    }
+
+    .main-menu-options > .gux-flyout-inner-content {
+      display: none;
+    }
+
     &:hover,
     &:active,
     &:focus {
@@ -58,6 +71,26 @@ gux-flyout-menu-beta {
       color: #ffffff;
       outline: none;
       cursor: pointer;
+
+      .main-menu-options > .gux-flyout-inner-content {
+        display: block;
+      }
+    }
+  }
+
+  .gux-flyout-inner-content {
+    gux-flyout-option {
+      .main-menu-options > .gux-flyout-inner-content {
+        display: none;
+      }
+
+      &:hover,
+      &:active,
+      &:focus {
+        .main-menu-options > .gux-flyout-inner-content {
+          display: block;
+        }
+      }
     }
   }
 
@@ -66,29 +99,5 @@ gux-flyout-menu-beta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  .menu-options {
-    .gux-flyout-inner-content {
-      display: none;
-    }
-
-    &_active {
-      > .gux-flyout-inner-content {
-        display: block;
-        box-shadow: 0 0 5px 0 rgba(218, 225, 232, 1);
-        padding: 0;
-        position: absolute;
-        top: 0;
-        left: 100%;
-        min-width: 185px;
-      }
-
-      &:active,
-      &:hover,
-      &:focus {
-        background: none;
-      }
-    }
   }
 }
