@@ -9,10 +9,13 @@ export class GuxFlyoutOption {
   @Prop() secondName = 'default second name';
   @Prop() withIcon: boolean;
   @Prop() iconName = 'angle-right';
+  @Prop() shortCut: string;
 
   private isIcon = iconName =>
-    this.withIcon && (
+    this.withIcon ? (
       <gux-icon screenreaderText={iconName} icon-name={iconName} />
+    ) : (
+      <span> {this.shortCut} </span>
     );
 
   private optionBuilderWithInnerOption = () => <slot>{this.name}</slot>;

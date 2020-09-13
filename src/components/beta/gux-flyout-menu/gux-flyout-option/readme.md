@@ -13,6 +13,7 @@
 | `iconName`       | `icon-name`        |             | `string`  | `'angle-right'`         |
 | `name`           | `name`             |             | `string`  | `'default name'`        |
 | `secondName`     | `second-name`      |             | `string`  | `'default second name'` |
+| `shortCut`       | `short-cut`        |             | `string`  | `undefined`             |
 | `withIcon`       | `with-icon`        |             | `boolean` | `undefined`             |
 
 
