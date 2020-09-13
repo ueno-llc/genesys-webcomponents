@@ -1,56 +1,43 @@
-import {
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Prop
-} from '@stencil/core';
+import { Component, h, Listen, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'gux-flyout-option'
 })
 export class GuxFlyoutOption {
-  @Element()
-  root: HTMLElement;
-  slotContent: HTMLElement;
+  @State()
+  active = false;
 
-  @Prop()
-  value: string;
+  @Prop() hasInnerOption: boolean;
+  @Prop() name = 'default name';
+  @Prop() secondName = 'default second name';
+  @Prop() withIcon: boolean;
+  @Prop() iconName = 'angle-right';
 
-  /**
-   * The content of this attribute represents the value to be displayed,
-   * If this attribute is omitted, the value is taken from the text content of the slot.
-   * This attribute takes precedence over slot value
-   */
-  @Prop()
-  text: string;
-
-  /**
-   * Occurs when the item has been selected.
-   */
-  @Event()
-  selectedChanged: EventEmitter<string>;
-
-  /**
-   * Occurs when the item has been focused.
-   */
-  @Event()
-  onFocus: EventEmitter<string>;
-
-  componentWillLoad() {
-    if (!this.text) {
-      this.text = this.root.textContent;
-    }
+  @Listen('click')
+  isActive(): void {
+    this.active = !this.active;
   }
 
-  hostData() {
-    return {
-      tabindex: '0'
-    };
-  }
+  private isMenuVisible = () =>
+    this.active ? 'menu-options menu-options_active' : 'menu-options';
+
+  private isIcon = iconName =>
+    this.withIcon && (
+      <gux-icon screenreaderText={iconName} icon-name={iconName} />
+    );
+
+  private optionBuilderWithInnerOption = () => (
+    <div class={this.isMenuVisible()}>
+      <slot>{this.name}</slot>
+    </div>
+  );
 
   render() {
-    return <slot />;
+    return (
+      <div class="main-menu-options">
+        {this.hasInnerOption ? this.optionBuilderWithInnerOption() : <slot />}
+        {this.isIcon(this.iconName)}
+      </div>
+    );
   }
 }

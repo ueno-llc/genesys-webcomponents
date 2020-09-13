@@ -9,10 +9,6 @@ export class GuxFlyoutMenu {
   root: HTMLElement;
 
   render() {
-    return (
-      <div class="gux-flyout-content">
-        <slot />
-      </div>
-    );
+    return <slot />;
   }
 }
