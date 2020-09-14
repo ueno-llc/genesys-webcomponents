@@ -4,9 +4,7 @@ import { Component, h, Prop } from '@stencil/core';
   tag: 'gux-flyout-option'
 })
 export class GuxFlyoutOption {
-  @Prop() hasInnerOption: boolean;
   @Prop() name = 'default name';
-  @Prop() secondName = 'default second name';
   @Prop() withIcon: boolean;
   @Prop() iconName = 'angle-right';
   @Prop() shortCut: string;
@@ -18,12 +16,10 @@ export class GuxFlyoutOption {
       <span> {this.shortCut} </span>
     );
 
-  private optionBuilderWithInnerOption = () => <slot>{this.name}</slot>;
-
   render() {
     return (
       <div class="main-menu-options">
-        {this.hasInnerOption ? this.optionBuilderWithInnerOption() : <slot />}
+        <slot>{this.name}</slot>
         {this.isIcon(this.iconName)}
       </div>
     );
