@@ -1,0 +1,49 @@
+<div style="display: flex;">
+  <div style="margin-left: 20px;">
+    <gux-flyout-menu-beta>
+      <gux-flyout-option name="Option One" short-cut="Crl+Alt+A"></gux-flyout-option>
+      <gux-flyout-option name="Option Two" short-cut="Crl+Alt+C"></gux-flyout-option>
+      <gux-flyout-option name="Option Three" short-cut="Shift+A"></gux-flyout-option>
+      <gux-flyout-option name="Option Four" short-cut="⌘A"></gux-flyout-option>
+      <gux-flyout-option name="Option Five" short-cut="⌘⇧A"></gux-flyout-option>
+    </gux-flyout-menu-beta>
+  </div>
+  <div style="margin-left: 20px;">
+    <gux-flyout-menu-beta>
+      <gux-flyout-option
+        with-icon
+        icon-name="angle-right"
+        name="Option One"
+      >
+        <div class="gux-flyout-inner-content">
+          <gux-flyout-option with-icon icon-name="angle-right" name="Option One">
+            <div class="gux-flyout-inner-content">
+              <gux-flyout-option name="Option One" short-cut="⌘A"></gux-flyout-option>
+              <gux-flyout-option name="Option Two" short-cut="⌘⇧A"></gux-flyout-option>
+              <gux-flyout-option name="Option Three" short-cut="Crl+C"></gux-flyout-option>
+            </div>
+          </gux-flyout-option>
+          <gux-flyout-option with-icon icon-name="angle-right" name="Option Two"></gux-flyout-option>
+          <gux-flyout-option with-icon icon-name="angle-right" name="Option Three"></gux-flyout-option>
+          <gux-flyout-option with-icon icon-name="angle-right" name="Option Four">
+            <div class="gux-flyout-inner-content">
+              <gux-flyout-option name="Option One" short-cut="⌘A"></gux-flyout-option>
+              <gux-flyout-option name="Option Two" short-cut="⌘⇧A"></gux-flyout-option>
+              <gux-flyout-option name="Option Three" short-cut="Crl+Alt+C"></gux-flyout-option>
+            </div>
+          </gux-flyout-option>
+        </div>
+      </gux-flyout-option>
+      <gux-flyout-option
+        with-icon
+        icon-name="angle-right"
+        name="Option Two"
+      ></gux-flyout-option>
+      <gux-flyout-option
+        with-icon
+        icon-name="angle-right"
+        name="Option Three"
+      ></gux-flyout-option>
+    </gux-flyout-menu-beta>
+  </div>
+</div>
