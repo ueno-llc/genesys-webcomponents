@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Listen, Event, Prop, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'gux-flyout-option'
@@ -8,6 +8,24 @@ export class GuxFlyoutOption {
   @Prop() withIcon: boolean;
   @Prop() iconName = 'angle-right';
   @Prop() shortCut: string;
+  @Prop() keyCode?: string;
+  @Prop() secondKeyCode?: string;
+  @Prop() thirdKeyCode?: string;
+
+  @Event() shortcutEvent: EventEmitter;
+
+  @Listen('keydown')
+  keyHandler(e) {
+    if (
+      e.keyCode === this.keyCode &&
+      this.secondKeyCode &&
+      e.keyCode === this.secondKeyCode &&
+      this.thirdKeyCode &&
+      e.keyCode === this.thirdKeyCode
+    ) {
+      this.shortcutEvent.emit();
+    }
+  }
 
   private isIcon = iconName =>
     this.withIcon ? (
