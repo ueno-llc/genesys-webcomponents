@@ -42,6 +42,19 @@ This component represents a checkbox with three possible states: `unchecked`, `c
 | `check` | Emits when the checked state changes. | `CustomEvent<boolean>` |
 
 
+## Dependencies
+
+### Used by
+
+ - [gux-table-beta](../../beta/gux-table)
+
+### Graph
+```mermaid
+graph TD;
+  gux-table-beta --> gux-checkbox
+  style gux-checkbox fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

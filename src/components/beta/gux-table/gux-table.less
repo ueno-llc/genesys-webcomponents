@@ -39,6 +39,28 @@ gux-table-beta {
         padding-left: 24px;
         text-align: right;
       }
+
+      th[data-cell-row-selection],
+      td[data-cell-row-selection] {
+        padding-left: 12px;
+        padding-right: 8px;
+        width: 16px;
+
+        gux-checkbox {
+          height: 25px;
+          width: 16px;
+
+          .gux-checked:after,
+          .gux-unchecked:after {
+            left: 0px;
+          }
+
+          .gux-checked:before,
+          .gux-unchecked:before {
+            left: 2px;
+          }
+        }
+      }
   
       th:last-child, td:last-child {
         border-right-width: 0px;
@@ -123,6 +145,12 @@ gux-table-beta {
           tr:hover {
             background: @gux-table-row-hover;
           }
+
+          tr[data-selected-row] {
+            td {
+              background: rgba(117, 168, 255, 0.24);
+            }
+          }
         }
       }
 
@@ -159,35 +187,7 @@ gux-table-beta {
               width: 3px;
               z-index: 99;
             }
-
-            
-
-            // &::before {
-            //   content: ' ';
-            //   height: 100%;
-            //   width: 5px;
-            //   background: blue;
-            //   position: absolute;
-            //   top: 0;
-            //   right: -3px;
-            //   z-index: 99;
-            //   cursor: col-resize;
-            // }
-
-            // &::after {
-            //   content: ' ';
-            //   height: 100%;
-            //   width: 5px;
-            //   background: blue;
-            //   position: absolute;
-            //   top: 0;
-            //   right: -3px;
-            //   z-index: 1;
-            //   cursor: col-resize;
-            // }
           }
-
-          
 
           th:hover {
             .gux-column-sort-arrow-down {

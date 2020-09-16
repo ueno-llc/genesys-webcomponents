@@ -76,10 +76,16 @@ export class GuxTable {
   columnsOrder: string;
 
   /**
-   * Indicates columns in order they should be displayed
+   * Indicates that table should have resizable columns
    */
   @Prop()
   resizableColumns: boolean;
+
+  /**
+   * Indicates that additional column for rows selection should be displayed
+   */
+  @Prop()
+  selectableRows: boolean = false;
 
   /**
    * Triggers when the sorting of the table column is changed.
@@ -404,6 +410,98 @@ export class GuxTable {
       tableContainerElement.scrollHeight > tableContainerElement.clientHeight;
   }
 
+  private handleRowSelection(event: CustomEvent): void {
+    const checkboxElement = event.target as HTMLElement;
+
+    if (event.detail) {
+      checkboxElement.parentElement.parentElement.setAttribute(
+        'data-selected-row',
+        ''
+      );
+    } else {
+      checkboxElement.parentElement.parentElement.removeAttribute(
+        'data-selected-row'
+      );
+    }
+
+    const rowsSelectionCheckboxes = Array.from(
+      this.tableContainer.querySelectorAll('tbody gux-checkbox')
+    );
+    const isAllCheckboxesSelected = rowsSelectionCheckboxes.every(
+      (checkbox: HTMLGuxCheckboxElement) => {
+        return checkbox.checked;
+      }
+    );
+    const isSomeCheckboxeUnselected = rowsSelectionCheckboxes.some(
+      (checkbox: HTMLGuxCheckboxElement) => {
+        return !checkbox.checked;
+      }
+    );
+
+    const allRowsSelectionCheckbox = this.tableContainer.querySelector(
+      'thead gux-checkbox'
+    ) as HTMLGuxCheckboxElement;
+    if (isAllCheckboxesSelected) {
+      allRowsSelectionCheckbox.checked = true;
+    } else if (allRowsSelectionCheckbox.checked && isSomeCheckboxeUnselected) {
+      allRowsSelectionCheckbox.checked = false;
+    }
+  }
+
+  private handleAllRowsSelection(event: CustomEvent): void {
+    const rowSelectionCells = Array.from(
+      this.tableContainer.querySelectorAll('td[data-cell-row-selection]')
+    );
+    const tableRows = Array.from(
+      this.tableContainer.querySelectorAll('tbody tr')
+    );
+
+    if (event.detail) {
+      rowSelectionCells.forEach((cell: HTMLElement) => {
+        cell.children[0].setAttribute('checked', '');
+      });
+      tableRows.forEach((row: HTMLElement) => {
+        row.setAttribute('data-selected-row', '');
+      });
+    } else {
+      rowSelectionCells.forEach((cell: HTMLElement) => {
+        cell.children[0].removeAttribute('checked');
+      });
+      tableRows.forEach((row: HTMLElement) => {
+        row.removeAttribute('data-selected-row');
+      });
+    }
+  }
+
+  private prepareSelectableRows(): void {
+    const tableHead = this.tableContainer.querySelector('thead tr');
+    const tableBody = this.tableContainer.querySelectorAll('tbody tr');
+    const rowsSelectionCheckbox = document.createElement('gux-checkbox');
+    const rowsSelectionColumn = document.createElement('th');
+
+    rowsSelectionColumn.setAttribute('data-cell-row-selection', '');
+    rowsSelectionColumn.appendChild(rowsSelectionCheckbox);
+    tableHead.prepend(rowsSelectionColumn);
+
+    rowsSelectionCheckbox.addEventListener(
+      'check',
+      this.handleAllRowsSelection.bind(this)
+    );
+
+    tableBody.forEach((row: HTMLElement) => {
+      const rowSelectionCell = document.createElement('td');
+      const rowSelectionCheckbox = document.createElement('gux-checkbox');
+      rowSelectionCell.setAttribute('data-cell-row-selection', '');
+      rowSelectionCell.appendChild(rowSelectionCheckbox);
+      row.prepend(rowSelectionCell);
+
+      rowSelectionCheckbox.addEventListener(
+        'check',
+        this.handleRowSelection.bind(this)
+      );
+    });
+  }
+
   async componentWillLoad(): Promise<void> {
     this.i18n = await buildI18nForComponent(this.root, tableResources);
     if (!this.emptyMessage) {
@@ -414,6 +512,10 @@ export class GuxTable {
 
     if (this.columnsOrder) {
       this.reorderColumns();
+    }
+
+    if (this.selectableRows && this.objectTable) {
+      this.prepareSelectableRows();
     }
 
     this.prepareSortableColumns();
@@ -428,7 +530,7 @@ export class GuxTable {
 
       if (!this.resizeObserver && window.ResizeObserver) {
         this.resizeObserver = new ResizeObserver(() => {
-          readTask(() => {
+          readTask((): void => {
             this.checkHorizontalScroll();
             this.checkVerticalScroll();
           });
