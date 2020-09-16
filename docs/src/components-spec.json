@@ -327,9 +327,15 @@
     "attributes": {
       "compact": "checkbox",
       "object-table": "checkbox",
-      "epmty-message": "text"
+      "epmty-message": "text",
+      "columns-order": "text",
+      "resizable-columns": "checkbox",
+      "selectable-rows": "checkbox"
     },
-    "events": {}
+    "events": {
+      "sortChanged": "Fired when sorting of the table column is changed",
+      "rowsSelectionChanged": "Fired when table row was selected/unselected"
+    }
   },
   "typography": {
     "attributes": {},

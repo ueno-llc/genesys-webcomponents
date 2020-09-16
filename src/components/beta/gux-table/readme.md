@@ -19,9 +19,10 @@
 
 ## Events
 
-| Event         | Description                                               | Type               |
-| ------------- | --------------------------------------------------------- | ------------------ |
-| `sortChanged` | Triggers when the sorting of the table column is changed. | `CustomEvent<any>` |
+| Event                  | Description                                               | Type               |
+| ---------------------- | --------------------------------------------------------- | ------------------ |
+| `rowsSelectionChanged` | Triggers when table row was selected/unselected           | `CustomEvent<any>` |
+| `sortChanged`          | Triggers when the sorting of the table column is changed. | `CustomEvent<any>` |
 
 
 ## Dependencies

@@ -6,6 +6,7 @@
 @gux-table-row-hover: rgba(117, 168, 255, .24);
 @gux-table-scroll-divider: rgba(34, 37, 41, 0.1);
 @gux-table-scroll-thumb: #B5B6B7;
+@gux-table-row-selection: rgba(117, 168, 255, 0.24);
 
 gux-table-beta {
   display: block;
@@ -148,7 +149,7 @@ gux-table-beta {
 
           tr[data-selected-row] {
             td {
-              background: rgba(117, 168, 255, 0.24);
+              background: @gux-table-row-selection;
             }
           }
         }

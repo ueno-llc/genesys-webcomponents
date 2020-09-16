@@ -92,6 +92,11 @@ export class GuxTable {
    */
   @Event() sortChanged: EventEmitter;
 
+  /**
+   * Triggers when table row was selected/unselected
+   */
+  @Event() rowsSelectionChanged: EventEmitter;
+
   @Listen('scroll', { capture: true })
   onScroll(): void {
     const scrollLeft = this.tableContainer.querySelector('.gux-table-container')
@@ -412,16 +417,23 @@ export class GuxTable {
 
   private handleRowSelection(event: CustomEvent): void {
     const checkboxElement = event.target as HTMLElement;
+    const currentRow = checkboxElement.parentElement
+      .parentElement as HTMLTableRowElement;
 
     if (event.detail) {
-      checkboxElement.parentElement.parentElement.setAttribute(
-        'data-selected-row',
-        ''
-      );
+      currentRow.setAttribute('data-selected-row', '');
+
+      this.rowsSelectionChanged.emit({
+        rowsIndices: [currentRow.rowIndex - 1],
+        actionType: 'selected'
+      });
     } else {
-      checkboxElement.parentElement.parentElement.removeAttribute(
-        'data-selected-row'
-      );
+      currentRow.removeAttribute('data-selected-row');
+
+      this.rowsSelectionChanged.emit({
+        rowsIndices: [currentRow.rowIndex - 1],
+        actionType: 'unselected'
+      });
     }
 
     const rowsSelectionCheckboxes = Array.from(
@@ -463,12 +475,22 @@ export class GuxTable {
       tableRows.forEach((row: HTMLElement) => {
         row.setAttribute('data-selected-row', '');
       });
+
+      this.rowsSelectionChanged.emit({
+        rowsIndices: [...Array(rowSelectionCells.length).keys()],
+        actionType: 'selected'
+      });
     } else {
       rowSelectionCells.forEach((cell: HTMLElement) => {
         cell.children[0].removeAttribute('checked');
       });
       tableRows.forEach((row: HTMLElement) => {
         row.removeAttribute('data-selected-row');
+      });
+
+      this.rowsSelectionChanged.emit({
+        rowsIndices: [...Array(rowSelectionCells.length).keys()],
+        actionType: 'unselected'
       });
     }
   }
