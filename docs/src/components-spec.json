@@ -241,12 +241,6 @@
   },
   "gux-spin-button": {},
   "gux-summary-palette": {},
-  "gux-summary-palette-section": {
-    "hidePage": true
-  },
-  "gux-summary-palette-section-option": {
-    "hidePage": true
-  },
   "gux-switch": {
     "attributes": { "selected-value": "text" },
     "events": { "selectionChanged": "switch state was changed" }

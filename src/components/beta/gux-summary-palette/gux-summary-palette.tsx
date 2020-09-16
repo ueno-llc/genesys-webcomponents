@@ -36,12 +36,12 @@ export class GuxSummaryPalette {
         <gux-disclosure-button position="right">
           <div slot="panel-content">
             <div class="gux-summary-palette-info">
-              <h2 class="title">Evaluation Summary</h2>
               <gux-accordion>
                 {this.sections.map(slot => (
                   <slot name={slot.slotName} />
                 ))}
               </gux-accordion>
+              <h2 class="title">Evaluation Summary</h2>
             </div>
           </div>
         </gux-disclosure-button>
