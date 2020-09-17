@@ -318,10 +318,8 @@ export class GuxTable {
     const sortingHiglight = document.createElement('div');
 
     downArrow.setAttribute('icon-name', 'ic-arrow-solid-down');
-    downArrow.setAttribute('screenreader-text', 'test');
     downArrow.setAttribute('class', 'gux-column-sort-arrow-down');
     upArrow.setAttribute('icon-name', 'ic-arrow-solid-up');
-    upArrow.setAttribute('screenreader-text', 'test');
     upArrow.setAttribute('class', 'gux-column-sort-arrow-up');
     sortingHiglight.setAttribute('class', 'gux-column-sort-highlight');
 
