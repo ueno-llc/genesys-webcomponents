@@ -442,7 +442,7 @@ export class GuxTable {
         return checkbox.checked;
       }
     );
-    const isSomeCheckboxeUnselected = rowsSelectionCheckboxes.some(
+    const isSomeCheckboxUnselected = rowsSelectionCheckboxes.some(
       (checkbox: HTMLGuxCheckboxElement) => {
         return !checkbox.checked;
       }
@@ -453,7 +453,7 @@ export class GuxTable {
     ) as HTMLGuxCheckboxElement;
     if (isAllCheckboxesSelected) {
       allRowsSelectionCheckbox.checked = true;
-    } else if (allRowsSelectionCheckbox.checked && isSomeCheckboxeUnselected) {
+    } else if (allRowsSelectionCheckbox.checked && isSomeCheckboxUnselected) {
       allRowsSelectionCheckbox.checked = false;
     }
   }
