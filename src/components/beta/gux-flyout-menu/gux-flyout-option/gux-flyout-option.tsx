@@ -7,12 +7,15 @@ export class GuxFlyoutOption {
   @Prop() name = 'default name';
   @Prop() withIcon: boolean;
   @Prop() iconName = 'angle-right';
+  @Prop({ mutable: true })
+  selectedValue: boolean;
   @Prop() shortCut: string;
   @Prop() keyCode?: string;
   @Prop() secondKeyCode?: string;
   @Prop() thirdKeyCode?: string;
 
-  @Event() shortcutEvent: EventEmitter;
+  @Event()
+  shortcutEvent: EventEmitter;
 
   @Listen('keydown')
   keyHandler(e) {
@@ -23,6 +26,7 @@ export class GuxFlyoutOption {
       this.thirdKeyCode &&
       e.keyCode === this.thirdKeyCode
     ) {
+      this.selectedValue = !this.selectedValue;
       this.shortcutEvent.emit();
     }
   }
