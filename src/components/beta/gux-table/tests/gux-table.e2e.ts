@@ -10,7 +10,7 @@ describe('gux-table', () => {
 
   it('renders', async () => {
     await page.setContent(`
-      <gux-table-beta>
+      <gux-table>
         <table slot="data">
           <thead>
             <tr>
@@ -25,15 +25,15 @@ describe('gux-table', () => {
             </tr>
           </tbody>
         </table>
-      </gux-table-beta>
+      </gux-table>
     `);
-    element = await page.find('gux-table-beta');
+    element = await page.find('gux-table');
     expect(element).toHaveClass('hydrated');
   });
 
   it('should show horizontal scroll buttons', async () => {
     await page.setContent(`
-      <gux-table-beta>
+      <gux-table>
         <table slot="data">
           <thead>
             <tr>
@@ -66,7 +66,7 @@ describe('gux-table', () => {
             </tr>
           </tbody>
         </table>
-      </gux-table-beta>
+      </gux-table>
     `);
     const leftScrollButton = await page.find('.gux-table-scroll-left');
     const rightScrollButton = await page.find('.gux-table-scroll-right');
@@ -76,7 +76,7 @@ describe('gux-table', () => {
 
   it('should have sortable column', async () => {
     await page.setContent(`
-      <gux-table-beta>
+      <gux-table>
         <table slot="data">
           <thead>
             <tr>
@@ -91,7 +91,7 @@ describe('gux-table', () => {
             </tr>
           </tbody>
         </table>
-      </gux-table-beta>
+      </gux-table>
     `);
     const sortableColumn = await page.find('th[data-column-name="first-name"]');
     await sortableColumn.click();
@@ -104,7 +104,7 @@ describe('gux-table', () => {
 
   it('should have empty table block', async () => {
     await page.setContent(`
-      <gux-table-beta>
+      <gux-table>
         <table slot="data">
           <thead>
             <tr>
@@ -115,7 +115,7 @@ describe('gux-table', () => {
             </tr>
           </thead>
         </table>
-      </gux-table-beta>
+      </gux-table>
     `);
     const emptyTableBlock = await page.find('.empty-table');
     expect(emptyTableBlock).toBeTruthy();
