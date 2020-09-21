@@ -334,11 +334,9 @@
     },
     "events": {
       "sortChanged": "Fired when sorting of the table column is changed",
-      "rowsSelectionChanged": "Fired when table row was selected/unselected"
+      "selectionChanged": "Fired when table row was selected/unselected"
     }
   },
-  "typography": {
-    "attributes": {},
-    "events": {}
-  }
+  "typography": {},
+  "color": {}
 }

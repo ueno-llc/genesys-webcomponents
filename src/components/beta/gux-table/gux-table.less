@@ -1,14 +1,19 @@
+@import (reference) '../../../style/color.less';
+
 // Variables part
-@gux-scroll-btn-border: #d5dce0;
-@gux-scroll-btn-disabled-text:#c3cad4;
-@gux-scroll-btn-shadow-left: 1px -1px 1px rgba(34, 37, 41, 0.08); 
-@gux-scroll-btn-shadow-right: -1px -1px 1px rgba(34, 37, 41, 0.08);
-@gux-table-row-hover: rgba(117, 168, 255, .24);
+@gux-table-scroll-btn-border: #d5dce0;
+@gux-table-scroll-btn-disabled-text:#c3cad4;
+@gux-table-scroll-btn-shadow-left: 1px -1px 1px rgba(34, 37, 41, 0.08);
+@gux-table-scroll-btn-shadow-right: -1px -1px 1px rgba(34, 37, 41, 0.08);
 @gux-table-scroll-divider: rgba(34, 37, 41, 0.1);
 @gux-table-scroll-thumb: #B5B6B7;
-@gux-table-row-selection: rgba(117, 168, 255, 0.24);
+@gux-table-scroll-thumb-hover: #555d66;
+@gux-table-row-hover-selection: fade(@gux-genesys-blue, 24%);
+@gux-table-background-secondary: #f8f8f8;
+@gux-table-column-sort-hover: #98a7b8;
+@gux-table-empty-message: #9baab8;
 
-gux-table-beta {
+gux-table {
   display: block;
 
   .gux-table {
@@ -17,11 +22,11 @@ gux-table-beta {
 
     table {
       border-spacing: 0px;
-      color: @gux-grey-2;
+      color: @gux-charcoal-grey;
       font-size: 12px;
       white-space: nowrap;
       width: 100%;
-  
+
       th, td {
         border-color: @gux-border;
         border-style: solid;
@@ -31,7 +36,7 @@ gux-table-beta {
         height: 40px;
         text-align: left;
       }
-  
+
       th[data-cell-numeric],
       td[data-cell-numeric],
       th[data-cell-action],
@@ -46,21 +51,6 @@ gux-table-beta {
         padding-left: 12px;
         padding-right: 8px;
         width: 16px;
-
-        gux-checkbox {
-          height: 25px;
-          width: 16px;
-
-          .gux-checked:after,
-          .gux-unchecked:after {
-            left: 0px;
-          }
-
-          .gux-checked:before,
-          .gux-unchecked:before {
-            left: 2px;
-          }
-        }
       }
   
       th:last-child, td:last-child {
@@ -72,8 +62,8 @@ gux-table-beta {
     .gux-table-scroll-right {
       align-items: center;
       background: @gux-border;
-      border: 1px solid @gux-scroll-btn-border;
-      color: @gux-grey-2;
+      border: 1px solid @gux-table-scroll-btn-border;
+      color: @gux-charcoal-grey;
       cursor: pointer;
       display: flex;
       height: 38px;
@@ -84,8 +74,8 @@ gux-table-beta {
       z-index: 1;
 
       &.disabled {
-        background: @gux-off-white-bg-2;
-        color: @gux-scroll-btn-disabled-text;
+        background: @gux-table-background-secondary;
+        color: @gux-table-scroll-btn-disabled-text;
       }
 
       gux-icon {
@@ -97,13 +87,13 @@ gux-table-beta {
     .gux-table-scroll-left {
       border-bottom-right-radius: 2px;
       border-top-right-radius: 2px;
-      box-shadow: @gux-scroll-btn-shadow-left;
+      box-shadow: @gux-table-scroll-btn-shadow-left;
     }
 
     .gux-table-scroll-right {
       border-bottom-left-radius: 2px;
       border-top-left-radius: 2px;
-      box-shadow: @gux-scroll-btn-shadow-right;
+      box-shadow: @gux-table-scroll-btn-shadow-right;
       right: 0;
     }
 
@@ -111,7 +101,7 @@ gux-table-beta {
       max-height: 100%;
       overflow-x: hidden;
       overflow-y: auto;
-      scrollbar-color: @gux-table-scroll-thumb @gux-off-white;
+      scrollbar-color: @gux-table-scroll-thumb @gux-background;
       scrollbar-width: thin;
       width: 100%;
 
@@ -120,7 +110,7 @@ gux-table-beta {
       }
 
       &::-webkit-scrollbar-track {
-        background: @gux-off-white;
+        background: @gux-background;
       }
 
       &::-webkit-scrollbar-thumb {
@@ -128,7 +118,7 @@ gux-table-beta {
       }
 
       &::-webkit-scrollbar-thumb:hover {
-        background: @gux-border-dark;
+        background: @gux-table-scroll-thumb-hover;
       }
 
       &.compact {
@@ -136,20 +126,20 @@ gux-table-beta {
           height: 24px;
         }
       }
-  
+
       &.object-table {
         tbody {
           th, td {
             border-width: 0px;
           }
-  
+
           tr:hover {
-            background: @gux-table-row-hover;
+            background: @gux-table-row-hover-selection;
           }
 
           tr[data-selected-row] {
             td {
-              background: @gux-table-row-selection;
+              background: @gux-table-row-hover-selection;
             }
           }
         }
@@ -160,9 +150,10 @@ gux-table-beta {
           th {
             position: sticky;
             top: 0;
-            background: @gux-off-white;
+            background: @gux-background;
 
-            gux-icon {
+            .gux-column-sort-arrow-down,
+            .gux-column-sort-arrow-up {
               display: none;
               position: absolute;
               right: 6px;
@@ -192,14 +183,15 @@ gux-table-beta {
 
           th:hover {
             .gux-column-sort-arrow-down {
-              color: @gux-icons;
+              color: @gux-table-column-sort-hover;
               display: block;
             }
           }
 
           th[data-cell-action],
           th[data-cell-numeric] {
-            gux-icon {
+            .gux-column-sort-arrow-down,
+            .gux-column-sort-arrow-up {
               left: 6px;
             }
           }
@@ -212,7 +204,7 @@ gux-table-beta {
 
           th[data-sort-direction="asc"] {
             .gux-column-sort-arrow-down {
-              color: @gux-grey-2;
+              color: @gux-type;
               display: block;
             }
 
@@ -223,7 +215,7 @@ gux-table-beta {
 
           th[data-sort-direction="desc"] {
             .gux-column-sort-arrow-up {
-              color: @gux-grey-2;
+              color: @gux-type;
               display: block;
             }
 
@@ -235,11 +227,11 @@ gux-table-beta {
 
         tbody {
           tr {
-            background: @gux-off-white-bg-2;
+            background: @gux-table-background-secondary;
           }
-      
+
           tr:nth-child(2n) {
-            background: @gux-off-white;
+            background: @gux-background;
           }
         }
       }
@@ -280,8 +272,8 @@ gux-table-beta {
 
   .empty-table {
     align-items: center;
-    background: @gux-off-white;
-    color: @gux-grey-bg-3;
+    background: @gux-background;
+    color: @gux-table-empty-message;
     display: flex;
     height: 150px;
     justify-content: center;

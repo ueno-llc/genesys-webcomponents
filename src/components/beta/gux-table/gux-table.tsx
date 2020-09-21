@@ -11,10 +11,11 @@ import {
 } from '@stencil/core';
 import { buildI18nForComponent, GetI18nValue } from '../../../i18n';
 import tableResources from './i18n/en.json';
+import { IColumnResizeState } from './gux-table-constants';
 
 @Component({
   styleUrl: 'gux-table.less',
-  tag: 'gux-table-beta'
+  tag: 'gux-table'
 })
 export class GuxTable {
   @Element()
@@ -22,10 +23,7 @@ export class GuxTable {
 
   private resizeObserver: ResizeObserver;
   private i18n: GetI18nValue;
-  private isColumnResizing: boolean;
-  private resizableColumn: HTMLElement | null;
-  private resizableColumnInitialWidth: number;
-  private columnResizeMouseStartX: number;
+  private columnResizeState: IColumnResizeState | null;
 
   /**
    * Indicates that vertical scroll is presented for table
@@ -73,7 +71,7 @@ export class GuxTable {
    * Indicates columns in order they should be displayed
    */
   @Prop()
-  columnsOrder: string;
+  columnOrder: string;
 
   /**
    * Indicates that table should have resizable columns
@@ -95,7 +93,7 @@ export class GuxTable {
   /**
    * Triggers when table row was selected/unselected
    */
-  @Event() rowsSelectionChanged: EventEmitter;
+  @Event() selectionChanged: EventEmitter;
 
   @Listen('scroll', { capture: true })
   onScroll(): void {
@@ -114,26 +112,30 @@ export class GuxTable {
 
   @Listen('mouseup', { capture: true })
   onMouseUp(): void {
-    if (this.resizableColumn) {
-      this.resizableColumn = null;
+    if (this.columnResizeState) {
       this.tableContainer.classList.remove('column-resizing');
 
+      /**
+       * We need to use setTimeout here to prevent firing 'click' event logic, which
+       * change sort direction. It happens when user resize column and release
+       * mouse button outside of gux-column-resize div element
+       */
       setTimeout(() => {
-        this.isColumnResizing = false;
+        this.columnResizeState = null;
       });
     }
   }
 
   @Listen('mousemove', { capture: true })
   onMouseMove(event: MouseEvent): void {
-    if (this.resizableColumn) {
-      this.resizableColumn.style.minWidth =
-        this.resizableColumnInitialWidth +
-        (event.pageX - this.columnResizeMouseStartX) +
+    if (this.columnResizeState) {
+      this.columnResizeState.resizableColumn.style.minWidth =
+        this.columnResizeState.resizableColumnInitialWidth +
+        (event.pageX - this.columnResizeState.columnResizeMouseStartX) +
         'px';
-      this.resizableColumn.style.width =
-        this.resizableColumnInitialWidth +
-        (event.pageX - this.columnResizeMouseStartX) +
+      this.columnResizeState.resizableColumn.style.width =
+        this.columnResizeState.resizableColumnInitialWidth +
+        (event.pageX - this.columnResizeState.columnResizeMouseStartX) +
         'px';
     }
   }
@@ -296,12 +298,14 @@ export class GuxTable {
 
       columnResizeElement.addEventListener('mousedown', (event: MouseEvent) => {
         const currentElement = event.target as HTMLElement;
+        const resizableColumn = currentElement.parentNode as HTMLElement;
 
-        this.resizableColumn = currentElement.parentNode as HTMLElement;
-        this.isColumnResizing = true;
-        this.columnResizeMouseStartX = event.pageX;
-        this.resizableColumnInitialWidth =
-          this.resizableColumn.clientWidth - 12 - 24;
+        this.columnResizeState = {
+          resizableColumn,
+          columnResizeMouseStartX: event.pageX,
+          resizableColumnInitialWidth: resizableColumn.clientWidth - 12 - 24
+        };
+
         this.tableContainer.classList.add('column-resizing');
       });
 
@@ -319,8 +323,10 @@ export class GuxTable {
 
     downArrow.setAttribute('icon-name', 'ic-arrow-solid-down');
     downArrow.setAttribute('class', 'gux-column-sort-arrow-down');
+    downArrow.setAttribute('decorative', '');
     upArrow.setAttribute('icon-name', 'ic-arrow-solid-up');
     upArrow.setAttribute('class', 'gux-column-sort-arrow-up');
+    upArrow.setAttribute('decorative', '');
     sortingHiglight.setAttribute('class', 'gux-column-sort-highlight');
 
     columnsElements.forEach((column: HTMLElement) => {
@@ -329,7 +335,7 @@ export class GuxTable {
         column.appendChild(upArrow.cloneNode(true));
         column.appendChild(sortingHiglight.cloneNode(true));
         column.onclick = (event: MouseEvent) => {
-          if (!this.isColumnResizing) {
+          if (!this.columnResizeState) {
             const columnElement = event.target as HTMLElement;
             const sortDirection = columnElement.dataset.sortDirection || '';
 
@@ -356,12 +362,12 @@ export class GuxTable {
   }
 
   private reorderColumns(): void {
-    const columnsOrder = this.columnsOrder.split(' ');
+    const columnOrder = this.columnOrder.split(' ');
     const tableHead = this.tableContainer.querySelector('thead tr');
     const tableBody = this.tableContainer.querySelectorAll('tbody tr');
     const reorderedColumns = [];
 
-    columnsOrder.forEach((columnName: string) => {
+    columnOrder.forEach((columnName: string) => {
       reorderedColumns.push(
         Array.from(tableHead.children).find(el => {
           return el.getAttribute('data-column-name') === columnName;
@@ -377,7 +383,7 @@ export class GuxTable {
     tableBody.forEach((row: HTMLElement) => {
       const reorderedRowCells = [];
 
-      columnsOrder.forEach((columnName: string) => {
+      columnOrder.forEach((columnName: string) => {
         reorderedRowCells.push(
           Array.from(row.children).find((cell: HTMLElement) => {
             return cell.getAttribute('data-column-name') === columnName;
@@ -421,14 +427,14 @@ export class GuxTable {
     if (event.detail) {
       currentRow.setAttribute('data-selected-row', '');
 
-      this.rowsSelectionChanged.emit({
+      this.selectionChanged.emit({
         rowsIndices: [currentRow.rowIndex - 1],
         actionType: 'selected'
       });
     } else {
       currentRow.removeAttribute('data-selected-row');
 
-      this.rowsSelectionChanged.emit({
+      this.selectionChanged.emit({
         rowsIndices: [currentRow.rowIndex - 1],
         actionType: 'unselected'
       });
@@ -474,7 +480,7 @@ export class GuxTable {
         row.setAttribute('data-selected-row', '');
       });
 
-      this.rowsSelectionChanged.emit({
+      this.selectionChanged.emit({
         rowsIndices: [...Array(rowSelectionCells.length).keys()],
         actionType: 'selected'
       });
@@ -486,7 +492,7 @@ export class GuxTable {
         row.removeAttribute('data-selected-row');
       });
 
-      this.rowsSelectionChanged.emit({
+      this.selectionChanged.emit({
         rowsIndices: [...Array(rowSelectionCells.length).keys()],
         actionType: 'unselected'
       });
@@ -530,7 +536,7 @@ export class GuxTable {
 
     this.setRowsCellsNames();
 
-    if (this.columnsOrder) {
+    if (this.columnOrder) {
       this.reorderColumns();
     }
 

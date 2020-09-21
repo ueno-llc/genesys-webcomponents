@@ -9,7 +9,7 @@
 
 | Property           | Attribute           | Description                                                             | Type      | Default     |
 | ------------------ | ------------------- | ----------------------------------------------------------------------- | --------- | ----------- |
-| `columnsOrder`     | `columns-order`     | Indicates columns in order they should be displayed                     | `string`  | `undefined` |
+| `columnOrder`      | `column-order`      | Indicates columns in order they should be displayed                     | `string`  | `undefined` |
 | `compact`          | `compact`           | Indicates table row density style                                       | `boolean` | `false`     |
 | `emptyMessage`     | `empty-message`     | Represents info message that should be displayed for empty table        | `string`  | `undefined` |
 | `objectTable`      | `object-table`      | Indicates that object table specific styles should be applied           | `boolean` | `false`     |
@@ -19,10 +19,10 @@
 
 ## Events
 
-| Event                  | Description                                               | Type               |
-| ---------------------- | --------------------------------------------------------- | ------------------ |
-| `rowsSelectionChanged` | Triggers when table row was selected/unselected           | `CustomEvent<any>` |
-| `sortChanged`          | Triggers when the sorting of the table column is changed. | `CustomEvent<any>` |
+| Event              | Description                                               | Type               |
+| ------------------ | --------------------------------------------------------- | ------------------ |
+| `selectionChanged` | Triggers when table row was selected/unselected           | `CustomEvent<any>` |
+| `sortChanged`      | Triggers when the sorting of the table column is changed. | `CustomEvent<any>` |
 
 
 ## Dependencies
@@ -35,9 +35,9 @@
 ### Graph
 ```mermaid
 graph TD;
-  gux-table-beta --> gux-icon
-  gux-table-beta --> gux-checkbox
-  style gux-table-beta fill:#f9f,stroke:#333,stroke-width:4px
+  gux-table --> gux-icon
+  gux-table --> gux-checkbox
+  style gux-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
