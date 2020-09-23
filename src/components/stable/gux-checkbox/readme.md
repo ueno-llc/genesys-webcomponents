@@ -46,12 +46,12 @@ This component represents a checkbox with three possible states: `unchecked`, `c
 
 ### Used by
 
- - [gux-table](../../beta/gux-table)
+ - [gux-row-select](../../beta/gux-table/gux-row-select)
 
 ### Graph
 ```mermaid
 graph TD;
-  gux-table --> gux-checkbox
+  gux-row-select --> gux-checkbox
   style gux-checkbox fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

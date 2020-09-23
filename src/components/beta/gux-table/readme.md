@@ -30,13 +30,11 @@
 ### Depends on
 
 - [gux-icon](../../stable/gux-icon)
-- [gux-checkbox](../../stable/gux-checkbox)
 
 ### Graph
 ```mermaid
 graph TD;
   gux-table --> gux-icon
-  gux-table --> gux-checkbox
   style gux-table fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

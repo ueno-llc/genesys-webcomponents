@@ -140,6 +140,11 @@ export class GuxTable {
     }
   }
 
+  @Listen('selectRow')
+  onSelectRow(event): void {
+    this.prepareSelectableRows(event.target);
+  }
+
   private get tableContainer(): HTMLElement {
     return this.root.children[0] as HTMLElement;
   }
@@ -419,113 +424,67 @@ export class GuxTable {
       tableContainerElement.scrollHeight > tableContainerElement.clientHeight;
   }
 
-  private handleRowSelection(event: CustomEvent): void {
-    const checkboxElement = event.target as HTMLElement;
-    const currentRow = checkboxElement.parentElement
-      .parentElement as HTMLTableRowElement;
-
-    if (event.detail) {
+  private rowSelection(checkbox: HTMLGuxCheckboxElement): void {
+    const currentRow: HTMLElement =
+      checkbox.parentElement.parentElement.parentElement;
+    if (checkbox.checked) {
       currentRow.setAttribute('data-selected-row', '');
-
       this.selectionChanged.emit({
-        rowsIndices: [currentRow.rowIndex - 1],
+        rowsIndices: [currentRow.getAttribute('data-row-id')],
         actionType: 'selected'
       });
     } else {
       currentRow.removeAttribute('data-selected-row');
-
       this.selectionChanged.emit({
-        rowsIndices: [currentRow.rowIndex - 1],
+        rowsIndices: [currentRow.getAttribute('data-row-id')],
         actionType: 'unselected'
       });
     }
+  }
 
-    const rowsSelectionCheckboxes = Array.from(
+  private allRowsSelection(mainCheckbox: HTMLGuxCheckboxElement): void {
+    mainCheckbox.checked = mainCheckbox.checked ? false : true;
+    const rowsSelectionCheckboxes: NodeList = this.tableContainer.querySelectorAll(
+      'tbody gux-checkbox'
+    );
+    const allAttributes: string[] = [];
+    rowsSelectionCheckboxes.forEach((checkbox: HTMLGuxCheckboxElement) => {
+      const parentTrElement: HTMLElement =
+        checkbox.parentElement.parentElement.parentElement;
+      allAttributes.push(parentTrElement.getAttribute('data-row-id'));
+      if (mainCheckbox.checked) {
+        checkbox.checked = true;
+        parentTrElement.setAttribute('data-selected-row', '');
+      } else {
+        checkbox.checked = false;
+        parentTrElement.removeAttribute('data-selected-row');
+      }
+    });
+    this.selectionChanged.emit({
+      rowsIndices: allAttributes,
+      actionType: mainCheckbox.checked ? 'selected' : 'unselected'
+    });
+  }
+
+  private prepareSelectableRows(rowSelect): void {
+    const bodyCheckboxes: HTMLGuxCheckboxElement[] = Array.from(
       this.tableContainer.querySelectorAll('tbody gux-checkbox')
     );
-    const isAllCheckboxesSelected = rowsSelectionCheckboxes.every(
-      (checkbox: HTMLGuxCheckboxElement) => {
-        return checkbox.checked;
-      }
-    );
-    const isSomeCheckboxUnselected = rowsSelectionCheckboxes.some(
+    const isNotAllCheckboxesSelected: boolean = !!bodyCheckboxes.find(
       (checkbox: HTMLGuxCheckboxElement) => {
         return !checkbox.checked;
       }
     );
-
-    const allRowsSelectionCheckbox = this.tableContainer.querySelector(
+    const currentCheckbox: HTMLGuxCheckboxElement = rowSelect.children[0];
+    const mainCheckbox: HTMLGuxCheckboxElement = this.tableContainer.querySelector(
       'thead gux-checkbox'
-    ) as HTMLGuxCheckboxElement;
-    if (isAllCheckboxesSelected) {
-      allRowsSelectionCheckbox.checked = true;
-    } else if (allRowsSelectionCheckbox.checked && isSomeCheckboxUnselected) {
-      allRowsSelectionCheckbox.checked = false;
-    }
-  }
-
-  private handleAllRowsSelection(event: CustomEvent): void {
-    const rowSelectionCells = Array.from(
-      this.tableContainer.querySelectorAll('td[data-cell-row-selection]')
     );
-    const tableRows = Array.from(
-      this.tableContainer.querySelectorAll('tbody tr')
-    );
-
-    if (event.detail) {
-      rowSelectionCells.forEach((cell: HTMLElement) => {
-        cell.children[0].setAttribute('checked', '');
-      });
-      tableRows.forEach((row: HTMLElement) => {
-        row.setAttribute('data-selected-row', '');
-      });
-
-      this.selectionChanged.emit({
-        rowsIndices: [...Array(rowSelectionCells.length).keys()],
-        actionType: 'selected'
-      });
+    mainCheckbox.checked = !isNotAllCheckboxesSelected;
+    if (currentCheckbox === mainCheckbox) {
+      this.allRowsSelection(currentCheckbox);
     } else {
-      rowSelectionCells.forEach((cell: HTMLElement) => {
-        cell.children[0].removeAttribute('checked');
-      });
-      tableRows.forEach((row: HTMLElement) => {
-        row.removeAttribute('data-selected-row');
-      });
-
-      this.selectionChanged.emit({
-        rowsIndices: [...Array(rowSelectionCells.length).keys()],
-        actionType: 'unselected'
-      });
+      this.rowSelection(currentCheckbox);
     }
-  }
-
-  private prepareSelectableRows(): void {
-    const tableHead = this.tableContainer.querySelector('thead tr');
-    const tableBody = this.tableContainer.querySelectorAll('tbody tr');
-    const rowsSelectionCheckbox = document.createElement('gux-checkbox');
-    const rowsSelectionColumn = document.createElement('th');
-
-    rowsSelectionColumn.setAttribute('data-cell-row-selection', '');
-    rowsSelectionColumn.appendChild(rowsSelectionCheckbox);
-    tableHead.prepend(rowsSelectionColumn);
-
-    rowsSelectionCheckbox.addEventListener(
-      'check',
-      this.handleAllRowsSelection.bind(this)
-    );
-
-    tableBody.forEach((row: HTMLElement) => {
-      const rowSelectionCell = document.createElement('td');
-      const rowSelectionCheckbox = document.createElement('gux-checkbox');
-      rowSelectionCell.setAttribute('data-cell-row-selection', '');
-      rowSelectionCell.appendChild(rowSelectionCheckbox);
-      row.prepend(rowSelectionCell);
-
-      rowSelectionCheckbox.addEventListener(
-        'check',
-        this.handleRowSelection.bind(this)
-      );
-    });
   }
 
   async componentWillLoad(): Promise<void> {
@@ -538,10 +497,6 @@ export class GuxTable {
 
     if (this.columnOrder) {
       this.reorderColumns();
-    }
-
-    if (this.selectableRows && this.objectTable) {
-      this.prepareSelectableRows();
     }
 
     this.prepareSortableColumns();

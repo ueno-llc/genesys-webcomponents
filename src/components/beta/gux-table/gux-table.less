@@ -8,7 +8,7 @@
 @gux-table-scroll-divider: rgba(34, 37, 41, 0.1);
 @gux-table-scroll-thumb: #B5B6B7;
 @gux-table-scroll-thumb-hover: #555d66;
-@gux-table-row-hover-selection: fade(@gux-genesys-blue, 24%);
+@gux-table-row-hover-selection: fade(@gux-blue, 24%);
 @gux-table-background-secondary: #f8f8f8;
 @gux-table-column-sort-hover: #98a7b8;
 @gux-table-empty-message: #9baab8;
@@ -46,8 +46,8 @@ gux-table {
         text-align: right;
       }
 
-      th[data-cell-row-selection],
-      td[data-cell-row-selection] {
+      tr[data-row-id] th:first-child,
+      tr[data-row-id] td:first-child {
         padding-left: 12px;
         padding-right: 8px;
         width: 16px;

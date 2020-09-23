@@ -370,7 +370,8 @@
 <gux-table object-table selectable-rows>
   <table slot="data">
     <thead>
-      <tr>
+      <tr data-row-id="head">
+        <th><gux-row-select></gux-row-select></th>
         <th data-column-name="first-name">First name</th>
         <th data-column-name="last-name">Last name</th>
         <th data-column-name="age" data-cell-numeric>Age</th>
@@ -378,25 +379,29 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr data-row-id="1id">
+        <td><gux-row-select></gux-row-select></td>
         <td>John</td>
         <td>Doe</td>
         <td data-cell-numeric>25</td>
         <td data-cell-action>Delete</td>
       </tr>
-      <tr>
+      <tr data-row-id="2id">
+        <td><gux-row-select></gux-row-select></td>
         <td>Jane</td>
         <td>Doe</td>
         <td data-cell-numeric>23</td>
         <td data-cell-action>Delete</td>
       </tr>
-      <tr>
+      <tr data-row-id="3id">
+        <td><gux-row-select></gux-row-select></td>
         <td>Jane</td>
         <td>Doe</td>
         <td data-cell-numeric>21</td>
         <td data-cell-action>Delete</td>
       </tr>
-      <tr>
+      <tr data-row-id="3id">
+        <td><gux-row-select></gux-row-select></td>
         <td>Jane</td>
         <td>Doe</td>
         <td data-cell-numeric>23</td>
