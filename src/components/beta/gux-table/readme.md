@@ -14,6 +14,13 @@
 | `objectTable`  | `object-table`  | Indicates that object table specific styles should be applied    | `boolean` | `false`     |
 
 
+## Events
+
+| Event              | Description                                     | Type               |
+| ------------------ | ----------------------------------------------- | ------------------ |
+| `selectionChanged` | Triggers when table row was selected/unselected | `CustomEvent<any>` |
+
+
 ## Dependencies
 
 ### Depends on

@@ -5,7 +5,9 @@ import {
   Listen,
   Prop,
   readTask,
-  State
+  State,
+  Event,
+  EventEmitter
 } from '@stencil/core';
 import { buildI18nForComponent, GetI18nValue } from '../../../i18n';
 import tableResources from './i18n/en.json';
@@ -64,6 +66,11 @@ export class GuxTable {
   @Prop()
   emptyMessage: string;
 
+  /**
+   * Triggers when table row was selected/unselected
+   */
+  @Event() selectionChanged: EventEmitter;
+
   @Listen('scroll', { capture: true })
   onScroll(): void {
     const scrollLeft = this.tableContainer.querySelector('.gux-table-container')
@@ -77,6 +84,11 @@ export class GuxTable {
     } else if (maxScrollLeft - scrollLeft - this.tableScrollbarConstant === 0) {
       this.isScrolledToLastCell = true;
     }
+  }
+
+  @Listen('selectRow')
+  onSelectRow(event): void {
+    this.prepareSelectableRows(event.target);
   }
 
   private get tableContainer(): HTMLElement {
@@ -251,6 +263,69 @@ export class GuxTable {
       this.resizeObserver.unobserve(
         this.tableContainer.querySelector('.gux-table-container table')
       );
+    }
+  }
+
+  private rowSelection(checkbox: HTMLGuxCheckboxElement): void {
+    const currentRow: HTMLElement =
+      checkbox.parentElement.parentElement.parentElement;
+    if (checkbox.checked) {
+      currentRow.setAttribute('data-selected-row', '');
+      this.selectionChanged.emit({
+        rowsIds: [currentRow.getAttribute('data-row-id')],
+        actionType: 'selected'
+      });
+    } else {
+      currentRow.removeAttribute('data-selected-row');
+      this.selectionChanged.emit({
+        rowsIds: [currentRow.getAttribute('data-row-id')],
+        actionType: 'unselected'
+      });
+    }
+  }
+
+  private allRowsSelection(mainCheckbox: HTMLGuxCheckboxElement): void {
+    mainCheckbox.checked = mainCheckbox.checked ? false : true;
+    const rowsSelectionCheckboxes: NodeList = this.tableContainer.querySelectorAll(
+      'tbody gux-checkbox'
+    );
+    const allAttributes: string[] = [];
+    rowsSelectionCheckboxes.forEach((checkbox: HTMLGuxCheckboxElement) => {
+      const parentTrElement: HTMLElement =
+        checkbox.parentElement.parentElement.parentElement;
+      allAttributes.push(parentTrElement.getAttribute('data-row-id'));
+      if (mainCheckbox.checked) {
+        checkbox.checked = true;
+        parentTrElement.setAttribute('data-selected-row', '');
+      } else {
+        checkbox.checked = false;
+        parentTrElement.removeAttribute('data-selected-row');
+      }
+    });
+    this.selectionChanged.emit({
+      rowsIds: allAttributes,
+      actionType: mainCheckbox.checked ? 'selected' : 'unselected'
+    });
+  }
+
+  private prepareSelectableRows(rowSelect): void {
+    const bodyCheckboxes: HTMLGuxCheckboxElement[] = Array.from(
+      this.tableContainer.querySelectorAll('tbody gux-checkbox')
+    );
+    const isNotAllCheckboxesSelected: boolean = !!bodyCheckboxes.find(
+      (checkbox: HTMLGuxCheckboxElement) => {
+        return !checkbox.checked;
+      }
+    );
+    const currentCheckbox: HTMLGuxCheckboxElement = rowSelect.children[0];
+    const mainCheckbox: HTMLGuxCheckboxElement = this.tableContainer.querySelector(
+      'thead gux-checkbox'
+    );
+    mainCheckbox.checked = !isNotAllCheckboxesSelected;
+    if (currentCheckbox === mainCheckbox) {
+      this.allRowsSelection(currentCheckbox);
+    } else {
+      this.rowSelection(currentCheckbox);
     }
   }
 

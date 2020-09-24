@@ -9,6 +9,7 @@
 @gux-table-row-hover: rgba(117, 168, 255, .24);
 @gux-table-scroll-divider: rgba(34, 37, 41, 0.1);
 @gux-table-scroll-thumb: #B5B6B7;
+@gux-table-row-hover-selection: fade(@gux-blue, 24%);
 
 gux-table-beta {
   display: block;
@@ -41,6 +42,13 @@ gux-table-beta {
         padding-right: 12px;
         padding-left: 24px;
         text-align: right;
+      }
+
+      tr[data-row-id] th:first-child,
+      tr[data-row-id] td:first-child {
+        padding-left: 12px;
+        padding-right: 8px;
+        width: 16px;
       }
 
       th:last-child, td:last-child {
@@ -124,7 +132,13 @@ gux-table-beta {
           }
 
           tr:hover {
-            background: @gux-table-row-hover;
+            background: @gux-table-row-hover-selection;
+          }
+
+          tr[data-selected-row] {
+            td {
+              background: @gux-table-row-hover-selection;
+            }
           }
         }
       }
