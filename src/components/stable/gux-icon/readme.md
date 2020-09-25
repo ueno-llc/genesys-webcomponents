@@ -39,6 +39,7 @@
  - [gux-spin-button](../gux-spin-button)
  - [gux-tab](../../beta/gux-tabs/gux-tab)
  - [gux-tab-dropdown-option](../../beta/gux-tabs/gux-tab-dropdown-option)
+ - [gux-table-beta](../../beta/gux-table)
  - [gux-tabs-beta](../../beta/gux-tabs)
  - [gux-tag-beta](../../beta/gux-tag)
  - [gux-text-field](../gux-text-field)
@@ -67,6 +68,7 @@ graph TD;
   gux-spin-button --> gux-icon
   gux-tab --> gux-icon
   gux-tab-dropdown-option --> gux-icon
+  gux-table-beta --> gux-icon
   gux-tabs-beta --> gux-icon
   gux-tag-beta --> gux-icon
   gux-text-field --> gux-icon
