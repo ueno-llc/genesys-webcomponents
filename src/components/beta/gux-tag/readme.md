@@ -5,10 +5,10 @@
 
 ## Properties
 
-| Property | Attribute | Description           | Type                                                                                                                                   | Default     |
-| -------- | --------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `color`  | `color`   | Tag background color. | `"blue" \| "dark-blue" \| "dark-pink" \| "dark-purple" \| "dark-yellow" \| "light-purple" \| "pink" \| "purple" \| "teal" \| "yellow"` | `undefined` |
-| `tagId`  | `tag-id`  | Index for remove tag  | `string`                                                                                                                               | `undefined` |
+| Property | Attribute | Description           | Type                                                                                                                                                   | Default     |
+| -------- | --------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| `color`  | `color`   | Tag background color. | `"aqua-green" \| "blue" \| "bubblegum-pink" \| "dark-purple" \| "electric-purple" \| "fuscha" \| "lilac" \| "navy" \| "olive-green" \| "yellow-green"` | `undefined` |
+| `tagId`  | `tag-id`  | Index for remove tag  | `string`                                                                                                                                               | `undefined` |
 
 
 ## Events

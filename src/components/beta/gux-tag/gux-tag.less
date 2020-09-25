@@ -1,7 +1,6 @@
+@import (reference) '../../../style/color.less';
 // Variables part
-
 @border-radius: 2px;
-@grey: #444a52;
 
 // Style
 gux-tag-beta {
@@ -15,7 +14,7 @@ gux-tag-beta {
 
     .gux-tag-text,
       .gux-tag-delete-button {
-        background-color: @grey;
+        background-color: @gux-charcoal-grey;
         height: 22px;
         border-radius: @border-radius;
         text-align: center;
@@ -23,21 +22,21 @@ gux-tag-beta {
         padding: 0;
       }
 
-      .dark-blue { background-color: @gux-dark-blue-sec; }
-      .blue { background-color: @gux-blue-sec; }
-      .purple { background-color: @gux-purple-sec; }
-      .teal { background-color: @gux-teal-sec; }
-      .dark-pink { background-color: @gux-dark-pink-sec; }
-      .dark-purple { background-color: @gux-dark-purple-sec; }
-      .pink { background-color: @gux-pink-sec; }
-      .dark-yellow { background-color: @gux-dark-yellow-sec;}
-      .light-purple { 
-        background-color: @gux-light-purple-sec;
-        color: @grey;
+      .navy { background-color: @gux-navy; }
+      .blue { background-color: @gux-blue; }
+      .electric-purple { background-color: @gux-electric-purple; }
+      .aqua-green { background-color: @gux-aqua-green; }
+      .fuscha { background-color: @gux-fuscha; }
+      .dark-purple { background-color: @gux-dark-purple; }
+      .bubblegum-pink { background-color: @gux-bubblegum-pink; }
+      .olive-green { background-color: @gux-olive-green;}
+      .lilac { 
+        background-color: @gux-lilac;
+        color: @gux-charcoal-grey;
       }
       .yellow {
-        background-color: @gux-yellow-sec;
-        color: @grey;
+        background-color: @gux-yellow-green;
+        color: @gux-charcoal-grey;
       }
 
       .gux-tag-text {
@@ -116,7 +115,7 @@ gux-tag-beta.gux-dark-theme {
 
 // Light
 .gux-tag-light-theme {
-  color: @grey;
+  color: @gux-charcoal-grey;
 }
 
 .gux-light-theme {
