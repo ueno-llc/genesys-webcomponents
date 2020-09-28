@@ -88,7 +88,7 @@ export class GuxTable {
 
   @Listen('selectRow')
   onSelectRow(event): void {
-    this.prepareSelectableRows(event.target);
+    this.handleSelectableRows(event.target);
   }
 
   private get tableContainer(): HTMLElement {
@@ -308,9 +308,9 @@ export class GuxTable {
     });
   }
 
-  private prepareSelectableRows(rowSelect): void {
+  private handleSelectableRows(rowSelect): void {
     const bodyCheckboxes: HTMLGuxCheckboxElement[] = Array.from(
-      this.tableContainer.querySelectorAll('tbody gux-checkbox')
+      this.tableContainer.querySelectorAll('tbody gux-row-select gux-checkbox')
     );
     const isNotAllCheckboxesSelected: boolean = !!bodyCheckboxes.find(
       (checkbox: HTMLGuxCheckboxElement) => {
@@ -319,7 +319,7 @@ export class GuxTable {
     );
     const currentCheckbox: HTMLGuxCheckboxElement = rowSelect.children[0];
     const mainCheckbox: HTMLGuxCheckboxElement = this.tableContainer.querySelector(
-      'thead gux-checkbox'
+      'thead gux-row-select gux-checkbox'
     );
     mainCheckbox.checked = !isNotAllCheckboxesSelected;
     if (currentCheckbox === mainCheckbox) {
