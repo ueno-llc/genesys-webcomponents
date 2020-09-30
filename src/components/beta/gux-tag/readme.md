@@ -15,7 +15,7 @@
 
 | Event       | Description                          | Type               |
 | ----------- | ------------------------------------ | ------------------ |
-| `deleteTag` | Triggered when click on close button | `CustomEvent<any>` |
+| `guxdelete` | Triggered when click on close button | `CustomEvent<any>` |
 
 
 ## Dependencies

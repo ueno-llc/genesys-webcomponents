@@ -34,7 +34,7 @@ export class GuxTag {
    * Triggered when click on close button
    */
   @Event()
-  deleteTag: EventEmitter;
+  guxdelete: EventEmitter;
 
   /**
    * Tag background color.
@@ -51,7 +51,7 @@ export class GuxTag {
   private i18n: (resourceKey: string, context?: any) => string;
 
   private handlerClickDeleteTag(): void {
-    this.deleteTag.emit(this.tagId);
+    this.guxdelete.emit(this.tagId);
   }
 
   private getDeleteButton() {

@@ -289,7 +289,7 @@
       ]
     },
     "events": {
-      "deleteTag": "Click on delete tag button"
+      "guxdelete": "Click on delete tag button"
     }
   },
   "gux-text-field": {
