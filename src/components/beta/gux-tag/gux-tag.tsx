@@ -9,6 +9,19 @@ import {
 import tagResources from './i18n/en.json';
 import { buildI18nForComponent } from '../../../i18n';
 
+export type GuxTagColor =
+  | 'default'
+  | 'navy'
+  | 'blue'
+  | 'electric-purple'
+  | 'aqua-green'
+  | 'fuscha'
+  | 'dark-purple'
+  | 'bubblegum-pink'
+  | 'olive-green'
+  | 'lilac'
+  | 'yellow-green';
+
 @Component({
   styleUrl: 'gux-tag.less',
   tag: 'gux-tag-beta'
@@ -27,17 +40,7 @@ export class GuxTag {
    * Tag background color.
    */
   @Prop()
-  color:
-    | 'navy'
-    | 'blue'
-    | 'electric-purple'
-    | 'aqua-green'
-    | 'fuscha'
-    | 'dark-purple'
-    | 'bubblegum-pink'
-    | 'olive-green'
-    | 'lilac'
-    | 'yellow-green';
+  color: GuxTagColor = 'default';
 
   /**
    * Index for remove tag
@@ -57,7 +60,7 @@ export class GuxTag {
         tabindex="0"
         type="button"
         onClick={this.handlerClickDeleteTag.bind(this)}
-        class={`gux-tag-delete-button ${this.color || ''}`}
+        class={`gux-tag-delete-button ${this.color}`}
       >
         <gux-icon
           screenreader-text={this.i18n('delete-tag')}
