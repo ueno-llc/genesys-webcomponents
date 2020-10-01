@@ -321,8 +321,14 @@
       "submit": "Standard Event"
     }
   },
-  "gux-flyout-menu": {
+  "gux-flyout-menu-beta": {
     "attributes": {},
     "events": {}
+  },
+  "gux-flyout-option-beta": {
+    "attributes": {},
+    "events": {
+      "shortcutEvent": "Standard Event"
+    }
   }
 }

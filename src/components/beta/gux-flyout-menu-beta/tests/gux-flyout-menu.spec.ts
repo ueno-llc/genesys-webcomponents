@@ -1,6 +1,6 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { GuxFlyoutMenu } from '../gux-flyout-menu';
-import { GuxFlyoutOption } from '../gux-flyout-option/gux-flyout-option';
+import { GuxFlyoutOption } from '../gux-flyout-option-beta/gux-flyout-option';
 
 describe('GuxFlyoutMenu', () => {
   let component: GuxFlyoutMenu;

@@ -1,0 +1,64 @@
+<div style="display: flex;">
+  <div style="margin-left: 20px;">
+    <gux-flyout-menu-beta>
+      <gux-flyout-option-beta
+        short-cut="Crl+Alt+A"
+        key-code="19"
+        second-key-code="34"
+        third-key-code="11"
+      >
+        <div slot="title">Option One</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="Crl+Alt+C">
+        <div slot="title">Option Two</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="Shift+A">
+        <div slot="title">Option Three</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="⌘A">
+        <div slot="title">Option Four</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="⌘⇧A">
+        <div slot="title">Option Five</div>
+      </gux-flyout-option-beta>
+    </gux-flyout-menu-beta>
+  </div>
+
+  <div style="margin-left: 20px;">
+    <gux-flyout-menu-beta>
+      <gux-flyout-option-beta with-icon>
+        <div slot="title">Option One</div>
+        <gux-flyout-submenu-beta slot="submenu">
+          <gux-flyout-option-beta>
+            <div slot="title">Option One</div>
+          </gux-flyout-option-beta>
+          <gux-flyout-option-beta>
+            <div slot="title">Option Two</div>
+          </gux-flyout-option-beta>
+          <gux-flyout-option-beta with-icon>
+            <div slot="title">Option Three</div>
+            <gux-flyout-submenu-beta slot="submenu">
+              <gux-flyout-option-beta short-cut="⌘A">
+                <div slot="title">Option One</div>
+              </gux-flyout-option-beta>
+              <gux-flyout-option-beta short-cut="⌘⇧A">
+                <div slot="title">Option Two</div>
+              </gux-flyout-option-beta>
+            </gux-flyout-submenu-beta>
+          </gux-flyout-option-beta>
+          <gux-flyout-option-beta>
+            <div slot="title">Option Four</div>
+          </gux-flyout-option-beta>
+        </gux-flyout-submenu-beta>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta>
+        <div slot="title">Option Two</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta>
+        <div slot="title">Option Three</div>
+      </gux-flyout-option-beta>
+    </gux-flyout-menu-beta>
+  </div>
+</div>
+
+
