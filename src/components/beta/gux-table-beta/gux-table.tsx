@@ -12,7 +12,11 @@ import {
 } from '@stencil/core';
 import { buildI18nForComponent, GetI18nValue } from '../../../i18n';
 import tableResources from './i18n/en.json';
-import { IColumnResizeState, ISortState } from './gux-table-constants';
+import {
+  IColumnResizeState,
+  ISortState,
+  ISelectedState
+} from './gux-table-constants';
 import { whenEventIsFrom } from '../../../common-utils';
 
 const COL_RESIZE_HANDLE_WIDTH = 3;
@@ -82,7 +86,7 @@ export class GuxTable {
   /**
    * Triggers when table row was selected/unselected
    */
-  @Event() selectionChanged: EventEmitter;
+  @Event() selectionChanged: EventEmitter<ISelectedState>;
 
   /**
    * Triggers when the sorting of the table column is changed.
@@ -442,13 +446,13 @@ export class GuxTable {
     if (checkbox.checked) {
       currentRow.setAttribute('data-selected-row', '');
       this.selectionChanged.emit({
-        rowsIds: [currentRow.getAttribute('data-row-id')],
+        rowIds: [currentRow.getAttribute('data-row-id')],
         actionType: 'selected'
       });
     } else {
       currentRow.removeAttribute('data-selected-row');
       this.selectionChanged.emit({
-        rowsIds: [currentRow.getAttribute('data-row-id')],
+        rowIds: [currentRow.getAttribute('data-row-id')],
         actionType: 'unselected'
       });
     }
@@ -473,7 +477,7 @@ export class GuxTable {
       }
     });
     this.selectionChanged.emit({
-      rowsIds: allAttributes,
+      rowIds: allAttributes,
       actionType: mainCheckbox.checked ? 'selected' : 'unselected'
     });
   }
