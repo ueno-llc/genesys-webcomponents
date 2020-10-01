@@ -1,3 +1,6 @@
+// Variables part
+@import (reference) '../../../style/color.less';
+
 gux-notification-toast {
   padding: 16px 8px 16px 16px;
   width: 336px;
@@ -10,7 +13,7 @@ gux-notification-toast {
   align-items: flex-start;
   border-top: 1px solid;
 
-  .icon{
+  .icon {
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
@@ -33,7 +36,7 @@ gux-notification-toast {
     align-content: stretch;
     align-items: flex-start;
 
-    .title{
+    .title {
       order: 0;
       flex: 1 1 auto;
       align-self: auto;
@@ -45,7 +48,7 @@ gux-notification-toast {
       max-height: 48px;
     }
 
-    .message{
+    .message {
       order: 0;
       flex: 1 1 auto;
       align-self: auto;
@@ -66,6 +69,7 @@ gux-notification-toast {
     background: transparent;
     font-size: 11px;
     cursor: pointer;
+
     gux-icon {
       width: 12px;
       height: 12px;
@@ -76,69 +80,75 @@ gux-notification-toast {
 // Theming
 // Light
 .gux-notification-toast-light-theme {
-  background: @gux-panel;
-  color: @gux-off-white;
-  border-color: @gux-grey-2;
+  background: @gux-background-dark;
+  color: @gux-type-dark;
+  border-color: @gux-type;
 
-  .icon{
+  .icon {
     &.alert {
-      color: @gux-alert-2;
+      color: @gux-alert-dark;
     }
+
     &.warning {
-      color: @gux-warning;
+      color: @gux-warning-dark;
     }
+
     &.positive {
-      color: @gux-positive;
+      color: @gux-positive-dark;
     }
+
     &.neutral {
-      color: @gux-neutral-2;
+      color: @gux-neutral-dark;
     }
   }
 
-  .title{
-    color: @gux-off-white;
+  .title {
+    color: @gux-type-dark;
   }
 
-  .message{
-    color: @gux-pale-gray-2;
+  .message {
+    color: #9baaba;
   }
 
   .dismiss-button {
-    color: @gux-off-white;
+    color: @gux-type-dark;
   }
 }
 
 // Dark
 .gux-notification-toast-dark-theme {
-  background: @gux-off-white;
-  color: @gux-grey-2;
+  background: @gux-background;
+  color: @gux-type;
   border-color: @gux-border;
 
   .icon {
     &.alert {
       color: @gux-alert;
     }
+
     &.warning {
       color: @gux-warning;
     }
+
     &.positive {
       color: @gux-positive;
     }
+
     &.neutral {
       color: @gux-neutral;
     }
   }
 
-  .title{
-    color: @gux-grey-2;
+  .title {
+    color: @gux-type;
   }
 
-  .message{
-    color: @gux-pale-gray;
+  .message {
+    color: #77828f;
   }
 
   .dismiss-button {
-    color: @gux-grey-2;
+    color: @gux-type;
   }
 }
 
@@ -153,6 +163,7 @@ gux-notification-toast {
     .gux-notification-toast-light-theme();
   }
 }
+
 gux-notification-toast.gux-light-theme {
   .gux-notification-toast-light-theme();
 }
@@ -163,6 +174,7 @@ gux-notification-toast.gux-light-theme {
     .gux-notification-toast-dark-theme();
   }
 }
+
 gux-notification-toast.gux-dark-theme {
   .gux-notification-toast-dark-theme();
 }

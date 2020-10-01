@@ -1,3 +1,5 @@
+@import (reference) '../../../../../../style/color.less';
+
 // Style
 gux-error-message-beta {
   .container {
@@ -16,12 +18,12 @@ gux-error-message-beta {
 
 // Dark
 .gux-error-message-dark-theme {
-  color: @gux-off-white;
-};
+  color: @gux-type-dark;
+}
 
 .gux-dark-theme {
   gux-error-message-beta {
-      .gux-error-message-dark-theme();
+    .gux-error-message-dark-theme();
   }
 }
 
@@ -31,12 +33,12 @@ gux-error-message-beta.gux-dark-theme {
 
 // Light
 .gux-error-message-light-theme {
-  color: @gux-grey-2;
-};
+  color: @gux-type;
+}
 
 .gux-light-theme {
   gux-error-message-beta {
-      .gux-error-message-light-theme();
+    .gux-error-message-light-theme();
   }
 }
 

@@ -18,12 +18,24 @@ def shouldPublish() {
   return isRelease();
 }
 
+def shouldUploadDocs() {
+  isRelease() || isFeature();
+}
+
 def shouldUploadAssets() { 
   isRelease() || isFeature();
 }
 
+def uploadVersionOverride() {
+    if (isFeature()) {
+        return "--version ${env.SHORT_BRANCH}"
+    } else {
+        return ""
+    }
+}
+
 pipeline {
-  agent { label 'infra_mesos_v2' }
+  agent { label 'dev_mesos_v2' }
   options {
     quietPeriod(480)
     disableConcurrentBuilds()
@@ -55,16 +67,37 @@ pipeline {
       }
     }
 
-    stage('Prep') {
+    stage('Checkout') {
       steps {
         deleteDir()
-        sh "env"
-        sh "git clone --single-branch -b master --depth=1 git@bitbucket.org:inindca/npm-utils.git ${env.NPM_UTIL_PATH}"
         dir(env.REPO_DIR) {
-          echo "Building branch: ${env.GIT_BRANCH}"
           checkout scm
           // Make a local branch so we can work with history and push (there's probably a better way to do this)
           sh "git checkout -b ${env.SHORT_BRANCH}"
+        }
+      }
+    }
+
+
+    stage('Avoid Build Loop') {
+      steps {
+        script {
+          dir(env.REPO_DIR) {
+            def lastCommit = sh(script: 'git log -n 1 --format=%s', returnStdout: true).trim()
+            if (lastCommit.startsWith('chore(release)')) {
+              currentBuild.description = 'Skipped'
+              currentBuild.result = 'ABORTED'
+              error('Last commit was a release, exiting build process.')
+            }
+          }
+        }
+      }
+    }
+
+    stage('Prep') {
+      steps {
+        sh "git clone --single-branch -b master --depth=1 git@bitbucket.org:inindca/npm-utils.git ${env.NPM_UTIL_PATH}"
+        dir(env.REPO_DIR) {
           sh "${env.WORKSPACE}/${env.NPM_UTIL_PATH}/scripts/jenkins-create-npmrc.sh"
           sh "cp .npmrc docs/.npmrc"
           sh "npm ci"
@@ -75,6 +108,7 @@ pipeline {
     stage('Check') {
       steps {
         dir(env.REPO_DIR) {
+          sh "npm run lint"
           sh "npm run test.unit"
         }
       }
@@ -87,7 +121,7 @@ pipeline {
       steps {
         dir(env.REPO_DIR) {
           script {
-            sh "npm run release -- --prerelease alpha"
+            sh "npm run release"
           }
         }
       }
@@ -99,11 +133,11 @@ pipeline {
           // Generate manifest file with deployment metadata
           sh './scripts/generate-manifest'
           // Generate the CDN_URL for use in the docs and build everything.
-          sh '''
-            export DOCS_CDN_URL=$(./node_modules/.bin/cdn --ecosystem pc --manifest docs-manifest.json)
-            export CDN_URL=$(./node_modules/.bin/cdn --ecosystem pc --manifest library-manifest.json)
+          sh """
+            export DOCS_CDN_URL=\$(./node_modules/.bin/cdn ${uploadVersionOverride()} --ecosystem pc --manifest docs-manifest.json)
+            export CDN_URL=\$(./node_modules/.bin/cdn ${uploadVersionOverride()} --ecosystem pc --manifest library-manifest.json)
             npm run build
-          '''
+          """
           // Re-generate manifest file after building docs - required to find *.html in docs
           sh './scripts/generate-manifest'
         }
@@ -117,12 +151,13 @@ pipeline {
       steps {
         dir(env.REPO_DIR) {
           sh "echo Uploading static assets!"
-          sh '''
+          sh """
             ./node_modules/.bin/upload \
+                ${uploadVersionOverride()} \
                 --ecosystem pc \
                 --manifest library-manifest.json \
                 --source-dir ./dist/genesys-webcomponents
-          '''
+          """
         }
       }
     }
@@ -135,10 +170,14 @@ pipeline {
       steps {
         dir(env.REPO_DIR) {
           script {
-            sh "npm publish --tag alpha"
-            sshagent(credentials: ['7c2a5698-a932-447a-9727-6852d0994ea0']) {
+            sh "npm publish"
+            sshagent(credentials: ['3aa16916-868b-4290-a9ee-b1a05343667e']) {
               sh "git push --follow-tags -u origin ${env.SHORT_BRANCH}"
             }
+          }
+          script {
+            publishedVersion = sh(script: 'node -e "console.log(require(\'./package.json\').version)"', returnStdout: true).trim()
+            currentBuild.description = publishedVersion
           }
         }
       }
@@ -147,18 +186,19 @@ pipeline {
 
     stage('Upload Docs') {
       when {
-        expression { shouldPublish() }
+        expression { shouldUploadDocs() }
       }
       steps {
         sh "echo Uploading release!"
         dir (env.REPO_DIR) {
           sh './scripts/generate-versions-file'
-          sh '''
+          sh """
             ./node_modules/.bin/upload \
+                ${uploadVersionOverride()} \
                 --ecosystem pc \
                 --manifest docs-manifest.json \
                 --source-dir ./docs/dist
-          '''
+          """
         }
       }
     }

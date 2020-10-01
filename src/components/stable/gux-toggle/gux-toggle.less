@@ -1,16 +1,18 @@
+@import (reference) '../../../style/color.less';
+
 // Variables part
-@box-shadow-checked: @gux-blue;
+@box-shadow-checked: @gux-genesys-blue;
 @box-shadow: @gux-border-strong;
-@background: @gux-icons;
+@background: #98a7b8;
 @background-before: @gux-off-white;
-@background-checked: @gux-dark-blue;
-@box-shadow-focus: @gux-blue;
+@background-checked: @gux-genesys-dark-blue;
+@box-shadow-focus: @gux-genesys-blue;
 
 @background-dark-theme: #555d66;
-@background-checked-dark-theme: @gux-dark-blue;
+@background-checked-dark-theme: @gux-genesys-dark-blue;
 @background-hover-dark-theme: #76818f;
 @background-checked-hover-dark-theme: #3476f5;
-@box-shadow-focus-dark-theme: @gux-blue;
+@box-shadow-focus-dark-theme: @gux-genesys-blue;
 
 // Component main style
 gux-toggle {
@@ -24,17 +26,22 @@ gux-toggle {
 
   > div {
     height: 16px;
+
     &.gux-checked > span {
       font-weight: bold;
     }
+
     > span {
       vertical-align: top;
-      margin-left: 6px;
+      margin-left: 8px;
       cursor: pointer;
+      text-transform: capitalize;
     }
+
     &:focus {
       outline: none;
-      .gux-slider:after {
+
+      .gux-slider::after {
         content: '';
         display: block;
         position: absolute;
@@ -55,7 +62,7 @@ gux-toggle {
   .gux-switch {
     position: relative;
     display: inline-block;
-    width: 32px;
+    width: 30px;
     height: 16px;
   }
 
@@ -75,7 +82,7 @@ gux-toggle {
     transition: 0.4s;
   }
 
-  .gux-slider:before {
+  .gux-slider::before {
     position: absolute;
     content: '';
     height: 14px;
@@ -91,10 +98,10 @@ gux-toggle {
     background-color: @background-checked;
   }
 
-  input:checked + .gux-slider:before {
-    -webkit-transform: translateX(14px);
-    -ms-transform: translateX(14px);
-    transform: translateX(14px);
+  input:checked + .gux-slider::before {
+    -webkit-transform: translateX(12px);
+    -ms-transform: translateX(12px);
+    transform: translateX(12px);
   }
 
   /* Rounded sliders */
@@ -102,7 +109,7 @@ gux-toggle {
     border-radius: 34px;
   }
 
-  .gux-slider.gux-round:before {
+  .gux-slider.gux-round::before {
     border-radius: 50%;
   }
 }
@@ -115,6 +122,7 @@ gux-toggle {
     .gux-slider {
       background-color: @background-dark-theme;
     }
+
     &.gux-checked {
       .gux-slider {
         background-color: @background-checked-dark-theme;
@@ -130,6 +138,7 @@ gux-toggle {
           box-shadow: none;
         }
       }
+
       &:not(.gux-checked) {
         .gux-slider {
           background-color: @background-hover-dark-theme;
@@ -137,8 +146,9 @@ gux-toggle {
         }
       }
     }
+
     &:focus {
-      .gux-slider:after {
+      .gux-slider::after {
         border-color: @box-shadow-focus-dark-theme;
       }
     }
@@ -161,6 +171,7 @@ gux-toggle.gux-dark-theme {
     .gux-slider {
       background-color: @background;
     }
+
     &.gux-checked {
       .gux-slider {
         background-color: @background-checked-dark-theme;
@@ -172,17 +183,19 @@ gux-toggle.gux-dark-theme {
     &:hover {
       &.gux-checked {
         .gux-slider {
-          box-shadow: 0px 0px 3px 0 @box-shadow-checked;
+          box-shadow: 0 0 3px 0 @box-shadow-checked;
         }
       }
+
       &:not(.gux-checked) {
         .gux-slider {
-          box-shadow: 0px 0px 3px 0 @box-shadow;
+          box-shadow: 0 0 3px 0 @box-shadow;
         }
       }
     }
+
     &:focus {
-      .gux-slider:after {
+      .gux-slider::after {
         border-color: @box-shadow-focus;
       }
     }

@@ -1,31 +1,31 @@
+@import (reference) '../../../../style/color.less';
 
 gux-side-panel-button {
-
   button {
     width: 48px;
     height: 48px;
     border: none;
     border-bottom: 1px solid @gux-border;
-    color: @gux-grey-2;
+    color: @gux-type;
     cursor: pointer;
-    background-color: @gux-off-white;
+    background-color: @gux-type-dark;
 
     &.selected {
-      background-color: @gux-dark-blue;
-      color: @gux-off-white;
+      background-color: @gux-genesys-dark-blue;
+      color: @gux-type-dark;
     }
 
     &:hover,
     &:active,
     &:focus {
-      color: @gux-dark-blue;
+      color: @gux-genesys-dark-blue;
 
       &.selected {
-        color: @gux-off-white;
+        color: @gux-type-dark;
       }
     }
 
-    &:focus{
+    &:focus {
       outline: none;
     }
 
@@ -40,52 +40,52 @@ gux-side-panel-button {
 // Dark
 .gux-side-panel-button-dark-theme {
   button {
-    color: @gux-off-white;
-    background-color: @gux-charcoal;
-    border-color: @gux-grey-1;
+    color: @gux-type-dark;
+    background-color: @gux-charcoal-grey;
+    border-color: @gux-grey-global;
 
     &.selected {
-      background-color: @gux-dark-blue;
+      background-color: @gux-genesys-dark-blue;
     }
 
     &:hover,
     &:active,
     &:focus {
-      color: @gux-blue;
+      color: @gux-genesys-blue;
 
       &.selected {
-        color: @gux-off-white;
+        color: @gux-type-dark;
       }
     }
   }
-};
+}
 
 .gux-dark-theme {
-    gux-side-panel-button {
-        .gux-side-panel-button-dark-theme();
-    }
+  gux-side-panel-button {
+    .gux-side-panel-button-dark-theme();
+  }
 }
 
 gux-side-panel-button.gux-dark-theme {
-    .gux-side-panel-button-dark-theme();
+  .gux-side-panel-button-dark-theme();
 }
 
 // Light
 .gux-side-panel-button-light-theme {
-    color: @gux-grey-2;
-};
+  color: @gux-type;
+}
 
 .gux-light-theme {
-    gux-side-panel-button {
-        .gux-side-panel-button-light-theme();
-    }
+  gux-side-panel-button {
+    .gux-side-panel-button-light-theme();
+  }
 }
 
 gux-side-panel-button.gux-light-theme {
-    .gux-side-panel-button-light-theme();
+  .gux-side-panel-button-light-theme();
 }
 
 // Default Theme
 gux-side-panel-button {
-    .gux-side-panel-button-light-theme();
+  .gux-side-panel-button-light-theme();
 }

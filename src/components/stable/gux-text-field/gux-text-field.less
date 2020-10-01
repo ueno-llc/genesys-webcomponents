@@ -1,50 +1,58 @@
 // Variables part
 @import (reference) '../../../style/shared/text-input.less';
+@import (reference) '../../../style/color.less';
 
-@background-color: @gux-off-white;
-@text-color: @gux-grey-2;
-@border: @gux-border-alt;
-@placeholder: @gux-pale-gray-2;
+@background-color: @gux-type-dark;
+@text-color: @gux-type;
+@border: #dae1e8;
+@placeholder: #9baaba;
 @icon-color: #b1becc;
 
-@dark-background-color: @gux-grey-2;
-@dark-text-color: @gux-off-white;
-@dark-border: @gux-grey-1;
-@dark-placeholder: @gux-pale-gray-2;
+@dark-background-color: @gux-type;
+@dark-text-color: @gux-type-dark;
+@dark-border: @gux-grey-global;
+@dark-placeholder: #9baaba;
 @dark-icon-color: #b1becc;
 
-@focus-outline: fade(@gux-blue, 50%);
-@focus-border: @gux-dark-blue;
+@focus-outline: fade(@gux-genesys-blue, 50%);
+@focus-border: @gux-genesys-dark-blue;
 @alert-color: @gux-alert;
-@alert-color-dark: @gux-alert-2;
+@alert-color-dark: @gux-alert-dark;
 
 gux-text-field {
   display: block;
+
   > div {
     margin: 4px 0;
+
     &.disabled {
       opacity: 0.5;
       pointer-events: none;
       cursor: default;
     }
+
     &.error,
     &.warning {
       input {
         border-color: @alert-color;
         outline: 0;
+
         &:focus,
         &:hover {
           border-color: @alert-color;
           outline: 0;
         }
       }
+
       .gux-error {
         color: @alert-color;
+
         i {
           margin-right: 4px;
         }
       }
     }
+
     &.warning {
       .gux-error {
         i {
@@ -52,13 +60,16 @@ gux-text-field {
         }
       }
     }
+
     > div.gux-field {
       position: relative;
       height: 32px;
     }
   }
+
   .gux-field {
     position: relative;
+
     input {
       .input-style();
 
@@ -66,6 +77,7 @@ gux-text-field {
         padding-right: 25px;
       }
     }
+
     button {
       color: @icon-color;
       position: absolute;
@@ -92,19 +104,23 @@ gux-text-field {
       input {
         border-color: @alert-color-dark;
         outline: 0;
+
         &:focus,
         &:hover {
           border-color: @alert-color-dark;
           outline: 0;
         }
       }
+
       .gux-error {
         color: @alert-color-dark;
+
         i {
           margin-right: 4px;
         }
       }
     }
+
     &.warning {
       .gux-error {
         i {
@@ -137,6 +153,7 @@ gux-text-field {
     .gux-text-field-dark-theme();
   }
 }
+
 .gux-text-field.gux-dark-theme {
   .gux-text-field-dark-theme();
 }
@@ -148,15 +165,18 @@ gux-text-field {
     &.warning {
       input {
         border-color: @alert-color;
+
         &:focus,
         &:hover {
           border-color: @alert-color;
         }
       }
+
       .gux-error {
         color: @alert-color;
       }
     }
+
     &.warning {
       .gux-error {
         i {
@@ -165,28 +185,35 @@ gux-text-field {
       }
     }
   }
+
   .gux-field {
     input {
       background-color: @background-color;
       border: 1px solid @border;
       color: @text-color;
+
       &::placeholder {
         color: @placeholder;
       }
+
       &::-webkit-input-placeholder {
         color: @placeholder;
       }
+
       &::-ms-input-placeholder {
         color: @placeholder;
       }
+
       &::-moz-placeholder {
         color: @placeholder;
       }
+
       &:focus {
         border: 1px solid @focus-border;
-        box-shadow: 0px 0px 4px @focus-outline;
+        box-shadow: 0 0 4px @focus-outline;
       }
     }
+
     button {
       color: @icon-color;
     }
@@ -198,6 +225,7 @@ gux-text-field {
     .gux-text-field-light-theme();
   }
 }
+
 gux-text-field.gux-light-theme {
   .gux-text-field-light-theme();
 }

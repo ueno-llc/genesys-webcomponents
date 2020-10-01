@@ -1,50 +1,85 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, Element, h, JSX, Prop } from '@stencil/core';
+
+export type GuxBreadcrumbAccent = 'primary' | 'secondary';
 
 @Component({
+  styleUrl: 'gux-breadcrumb-item.less',
   tag: 'gux-breadcrumb-item'
 })
 export class GuxBreadcrumbItem {
-  @Prop()
-  lastBreadcrumb: boolean;
-
-  @Prop()
-  accent: string;
+  @Element()
+  private root: HTMLGuxBreadcrumbItemElement;
 
   @Prop()
   href: string;
 
-  render() {
-    const separatorIcon =
-      this.accent === 'secondary' ? (
-        <gux-icon
-          class="separator"
-          icon-name="ic-chevron-right"
-          decorative
-        ></gux-icon>
-      ) : (
-        <span class="separator" aria-hidden="true">
-          /
-        </span>
-      );
-    const separator = this.lastBreadcrumb ? '' : separatorIcon;
-    if (this.href && !this.lastBreadcrumb) {
+  private getAccent(): GuxBreadcrumbAccent {
+    const container = this.root.closest('gux-breadcrumbs-beta');
+    return container.accent;
+  }
+
+  private isLastBreadcrumb(): boolean {
+    const parentNode = this.root.parentNode;
+    const children = parentNode.children;
+
+    return children[children.length - 1] === this.root;
+  }
+
+  private getBreadcrumb(): JSX.Element {
+    if (
+      !this.href ||
+      this.isLastBreadcrumb() ||
+      this.getAccent() === 'primary'
+    ) {
       return (
-        <span>
-          <a class="breadcrumb" href={this.href}>
-            <slot />
-          </a>
-          {separator}
-        </span>
-      );
-    } else {
-      return (
-        <span>
-          <span class="breadcrumb">
-            <slot />
-          </span>
-          {separator}
+        <span class="gux-breadcrumb-content">
+          <slot />
         </span>
       );
     }
+
+    return (
+      <a class="gux-breadcrumb-content" href={this.href}>
+        <slot />
+      </a>
+    );
+  }
+
+  private getSeparatorIcon(): JSX.Element {
+    if (this.isLastBreadcrumb()) {
+      return null;
+    }
+
+    switch (this.getAccent()) {
+      case 'primary':
+        return (
+          <span class="gux-breadcrumb-separator" aria-hidden="true">
+            /
+          </span>
+        );
+      case 'secondary':
+        return (
+          <gux-icon
+            class="gux-breadcrumb-separator"
+            icon-name="ic-chevron-small-right"
+            decorative
+          ></gux-icon>
+        );
+      default:
+        return (
+          <span class="gux-breadcrumb-separator" aria-hidden="true">
+            /
+          </span>
+        );
+    }
+  }
+
+  render(): JSX.Element {
+    return (
+      <span class="gux-breadcrumb-generation">
+        {this.getBreadcrumb()}
+        {this.getSeparatorIcon()}
+      </span>
+    );
   }
 }

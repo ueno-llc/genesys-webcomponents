@@ -1,5 +1,7 @@
+@import (reference) '../../../style/color.less';
+
 // Variables part
-@palette-background-color: @gux-off-white;
+@palette-background-color: @gux-type-dark;
 @palette-background-color-dark: #555d66;
 @palette-border-color: #dae1eb;
 @palette-details-color: #77828f;
@@ -8,13 +10,12 @@
 // Style
 gux-command-palette-beta .gux-command-palette {
   border-color: 1px solid @palette-border-color;
-  box-shadow: 0px 0 2px 0px @palette-shadow;
+  box-shadow: 0 0 2px 0 @palette-shadow;
   position: absolute;
   left: 0;
   right: 0;
   margin: 0 auto;
   max-width: 750px;
-
   padding: 12px;
 
   &.hidden {
@@ -36,6 +37,7 @@ gux-command-palette-beta .gux-command-palette {
       opacity: 0;
       top: 0;
     }
+
     100% {
       opacity: 1;
       top: 40px;
@@ -49,7 +51,7 @@ gux-command-palette-beta .gux-command-palette {
   gux-list > div[role='list'] > strong {
     height: 32px;
     line-height: 32px;
-    padding: 0px 16px;
+    padding: 0 16px;
   }
 
   gux-text-field,
@@ -117,18 +119,18 @@ gux-command-palette-beta .gux-command-palette {
 .gux-command-palette-dark-theme {
   .gux-command-palette {
     background: @palette-background-color-dark;
-    color: @gux-off-white;
+    color: @gux-type-dark;
 
     gux-list gux-list-item:focus,
     gux-list gux-list-item:active,
     gux-list gux-list-item:hover {
       .list-item div {
-        background: @gux-dark-blue;
-        color: @gux-off-white;
+        background: @gux-genesys-dark-blue;
+        color: @gux-type-dark;
       }
 
       .list-item .details {
-        color: @gux-off-white;
+        color: @gux-type-dark;
       }
     }
 
@@ -152,18 +154,18 @@ gux-command-palette-beta.gux-dark-theme {
 .gux-command-palette-light-theme {
   .gux-command-palette {
     background: @palette-background-color;
-    color: @gux-grey-2;
+    color: @gux-type;
 
     gux-list gux-list-item:focus,
     gux-list gux-list-item:active,
     gux-list gux-list-item:hover {
       .list-item div {
-        background: @gux-dark-blue;
-        color: @gux-off-white;
+        background: @gux-genesys-dark-blue;
+        color: @gux-type-dark;
       }
 
       .list-item .details {
-        color: @gux-off-white;
+        color: @gux-type-dark;
       }
     }
 

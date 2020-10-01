@@ -1,3 +1,5 @@
+@import (reference) '../../../style/color.less';
+
 // Variables part
 @icon-color: #b1becc;
 
@@ -12,7 +14,7 @@ gux-search-beta {
 
     gux-text-field {
       & > div {
-        margin: 0px;
+        margin: 0;
       }
 
       input {
@@ -29,6 +31,7 @@ gux-search-beta {
     display: flex;
     align-items: center;
     color: @icon-color;
+
     .gux-icon {
       width: 16px;
       height: 16px;
@@ -40,7 +43,7 @@ gux-search-beta {
 
 // Dark
 .gux-search-dark-theme {
-  color: @gux-off-white;
+  color: @gux-type-dark;
 }
 
 .gux-dark-theme {
@@ -55,7 +58,7 @@ gux-search-beta.gux-dark-theme {
 
 // Light
 .gux-search-light-theme {
-  color: @gux-grey-2;
+  color: @gux-type;
 }
 
 .gux-light-theme {
