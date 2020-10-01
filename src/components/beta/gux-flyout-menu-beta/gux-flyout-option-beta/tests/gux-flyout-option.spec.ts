@@ -8,13 +8,14 @@ describe('GuxFlyoutOption', () => {
     const page = await newSpecPage({
       components: [GuxFlyoutOption],
       html: `
-        <gux-flyout-option
-          name="Option One"
+        <gux-flyout-option-beta
           short-cut="Crl+Alt+A"
           key-code="19"
           second-key-code="34"
           third-key-code="11"
-        ></gux-flyout-option>
+        >
+          <div slot="title">Option One</div>
+        </gux-flyout-option-beta>
       `,
       language: 'en'
     });
@@ -38,11 +39,9 @@ describe('GuxFlyoutOption', () => {
       };
 
       component.keyHandler(mockedEvent);
-
       expect(component.selectedValue).toBeTruthy();
 
       component.keyHandler(mockedEvent);
-
       expect(component.selectedValue).toBeFalsy();
     });
   });

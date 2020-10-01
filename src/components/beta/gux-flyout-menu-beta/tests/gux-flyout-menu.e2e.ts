@@ -13,11 +13,21 @@ describe('gux-panel-frame', () => {
     const page = await newE2EPage();
 
     await page.setContent(`
-      <gux-flyout-option id="opt1" name="Option One" short-cut="Crl+Alt+A"></gux-flyout-option>
-      <gux-flyout-option name="Option Two" short-cut="Crl+Alt+C"></gux-flyout-option>
-      <gux-flyout-option name="Option Three" short-cut="Shift+A"></gux-flyout-option>
-      <gux-flyout-option name="Option Four" short-cut="⌘A"></gux-flyout-option>
-      <gux-flyout-option name="Option Five" short-cut="⌘⇧A"></gux-flyout-option>
+      <gux-flyout-option-beta id="opt1" short-cut="Crl+Alt+A">
+        <div slot="title">Option One</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="Crl+Alt+C">
+        <div slot="title">Option Two</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="Shift+A">
+        <div slot="title">Option Three</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="⌘A">
+        <div slot="title">Option Four</div>
+      </gux-flyout-option-beta>
+      <gux-flyout-option-beta short-cut="⌘⇧A">
+        <div slot="title">Option Five</div>
+      </gux-flyout-option-beta>
     `);
     await page.waitForChanges();
 

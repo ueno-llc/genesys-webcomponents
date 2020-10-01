@@ -18,9 +18,9 @@
 
 ## Events
 
-| Event           | Description | Type               |
-| --------------- | ----------- | ------------------ |
-| `shortcutEvent` |             | `CustomEvent<any>` |
+| Event            | Description | Type               |
+| ---------------- | ----------- | ------------------ |
+| `optionSelected` |             | `CustomEvent<any>` |
 
 
 ## Dependencies

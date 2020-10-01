@@ -1,7 +1,7 @@
 // Style
 gux-flyout-option-beta {
   box-sizing: border-box;
-  color: #000000;
+  color: #000;
   display: flex;
   font-size: 12px;
   height: auto;
@@ -10,23 +10,26 @@ gux-flyout-option-beta {
   padding: 0 16px;
   position: relative;
   width: 100%;
-  
+
   .gux-flyout-option-container {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
     width: 100%;
 
     > gux-flyout-submenu-beta {
       display: none;
+    }
+
+    .gux-flyout-option-container-item {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
     }
   }
 
   &:hover,
   &:active,
   &:focus {
-    background: #2A60C8;
-    color: #ffffff;
+    background: #2a60c8;
+    color: #fff;
     cursor: pointer;
     outline: none;
 

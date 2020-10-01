@@ -10,15 +10,20 @@ describe('GuxFlyoutMenu', () => {
       components: [GuxFlyoutMenu, GuxFlyoutOption],
       html: `
         <gux-flyout-menu-beta>
-          <gux-flyout-option
-            name="Option One"
+          <gux-flyout-option-beta
             short-cut="Crl+Alt+A"
             key-code="19"
             second-key-code="34"
             third-key-code="11"
-          ></gux-flyout-option>
-          <gux-flyout-option name="Option Two" short-cut="Crl+Alt+C"></gux-flyout-option>
-          <gux-flyout-option name="Option Three" short-cut="Shift+A"></gux-flyout-option>
+          >
+            <div slot="title">Option One</div>
+          </gux-flyout-option-beta>
+          <gux-flyout-option-beta short-cut="Crl+Alt+C">
+            <div slot="title">Option Two</div>
+          </gux-flyout-option-beta>
+          <gux-flyout-option-beta short-cut="Shift+A">
+            <div slot="title">Option Three</div>
+          </gux-flyout-option-beta>
         </gux-flyout-menu-beta>
       `,
       language: 'en'

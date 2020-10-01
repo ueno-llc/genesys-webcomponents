@@ -326,12 +326,8 @@
   },
   "gux-flyout-menu-beta": {
     "attributes": {},
-    "events": {}
-  },
-  "gux-flyout-option-beta": {
-    "attributes": {},
     "events": {
-      "shortcutEvent": "Standard Event"
+      "menuOptionSelected": "Fired when option in flyout menu being selected"
     }
   },
   "gux-table-beta": {
