@@ -41,6 +41,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [gux-pagination-items-per-page](../gux-pagination/gux-pagination-items-per-page)
+ - [gux-tag-popover-beta](../../beta/gux-tag-popover)
 
 ### Depends on
 
@@ -54,6 +55,7 @@ graph TD;
   gux-dropdown --> gux-icon
   gux-text-field --> gux-icon
   gux-pagination-items-per-page --> gux-dropdown
+  gux-tag-popover-beta --> gux-dropdown
   style gux-dropdown fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

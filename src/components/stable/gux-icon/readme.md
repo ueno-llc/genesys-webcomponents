@@ -41,6 +41,8 @@
  - [gux-tab-dropdown-option](../../beta/gux-tabs/gux-tab-dropdown-option)
  - [gux-table-beta](../../beta/gux-table-beta)
  - [gux-tabs-beta](../../beta/gux-tabs)
+ - [gux-tag-beta](../../beta/gux-tag)
+ - [gux-tag-popover-beta](../../beta/gux-tag-popover)
  - [gux-text-field](../gux-text-field)
 
 ### Graph
@@ -69,6 +71,8 @@ graph TD;
   gux-tab-dropdown-option --> gux-icon
   gux-table-beta --> gux-icon
   gux-tabs-beta --> gux-icon
+  gux-tag-beta --> gux-icon
+  gux-tag-popover-beta --> gux-icon
   gux-text-field --> gux-icon
   style gux-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

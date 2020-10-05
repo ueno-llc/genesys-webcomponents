@@ -21,12 +21,14 @@ You can choose between two type (secondary and primary).
 
  - [gux-action-button](../gux-action-button)
  - [gux-pagination-buttons](../gux-pagination/gux-pagination-buttons)
+ - [gux-tag-popover-beta](../../beta/gux-tag-popover)
 
 ### Graph
 ```mermaid
 graph TD;
   gux-action-button --> gux-button
   gux-pagination-buttons --> gux-button
+  gux-tag-popover-beta --> gux-button
   style gux-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

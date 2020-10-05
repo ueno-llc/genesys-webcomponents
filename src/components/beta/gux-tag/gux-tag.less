@@ -1,0 +1,134 @@
+@import (reference) '../../../style/color.less';
+// Variables part
+@border-radius: 2px;
+
+// Style
+gux-tag-beta {
+  margin-right: 8px;
+  display: inline-block;
+  div.gux-tag {
+    position: relative;
+    margin: 4px 0;
+    display: flex;
+    margin: 4px 0;
+
+    .gux-tag-text,
+      .gux-tag-delete-button {
+        background-color: @gux-charcoal-grey;
+        height: 22px;
+        border-radius: @border-radius;
+        text-align: center;
+        color: white;
+        padding: 0;
+      }
+
+      .navy { background-color: @gux-navy; }
+      .blue { background-color: @gux-blue; }
+      .electric-purple { background-color: @gux-electric-purple; }
+      .aqua-green { background-color: @gux-aqua-green; }
+      .fuscha { background-color: @gux-fuscha; }
+      .dark-purple { background-color: @gux-dark-purple; }
+      .bubblegum-pink { background-color: @gux-bubblegum-pink; }
+      .olive-green { background-color: @gux-olive-green;}
+      .lilac { 
+        background-color: @gux-lilac;
+        color: @gux-charcoal-grey;
+      }
+      .yellow {
+        background-color: @gux-yellow-green;
+        color: @gux-charcoal-grey;
+      }
+
+      .gux-tag-text {
+        white-space: nowrap;
+        padding: 1px 8px;
+        line-height: 22px;
+      }
+
+      .gux-tag-delete-button {
+        width: 0;
+        height: 24px;
+        display: flex;
+        border: none;
+        cursor: pointer;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0 @border-radius @border-radius 0;
+        margin-left: 1px;
+      }
+
+      .gux-tag-delete-icon {
+        margin: 0 auto;
+        display: none;
+      }
+      .gux-tag-delete-button:active, 
+      .gux-tag-delete-button:focus {
+        display: flex;
+      }
+
+    .show-delete-button {
+      width: 24px;
+      .gux-tag-delete-icon {
+        display: inline-block;
+      }
+    }
+    .active-text-element {
+      border-radius: @border-radius 0 0 @border-radius;
+    }
+
+    &:hover {
+      .gux-tag-text {
+        .active-text-element()
+      }
+      .gux-tag-delete-button {
+        .show-delete-button()
+      }
+    }
+    .gux-tag-text:focus {
+      .active-text-element()
+    }
+    .gux-tag-delete-button:focus {
+      .show-delete-button()
+    }
+    .gux-tag-text:focus ~ .gux-tag-delete-button {
+      .show-delete-button();
+    }
+  }
+}
+
+// Theming
+
+// Dark
+.gux-tag-dark-theme {
+  color: @gux-off-white;
+}
+
+.gux-dark-theme {
+  gux-tag-beta {
+    .gux-tag-dark-theme();
+  }
+}
+
+gux-tag-beta.gux-dark-theme {
+  .gux-tag-dark-theme();
+}
+
+// Light
+.gux-tag-light-theme {
+  color: @gux-charcoal-grey;
+}
+
+.gux-light-theme {
+  gux-tag-beta {
+    .gux-tag-light-theme();
+  }
+}
+
+gux-tag-beta.gux-light-theme {
+  .gux-tag-light-theme();
+}
+
+// Default Theme
+gux-tag-beta {
+  .gux-tag-light-theme();
+}

@@ -32,6 +32,7 @@ Type: `Promise<boolean>`
 ### Used by
 
  - [gux-pagination-items-per-page](../../gux-pagination/gux-pagination-items-per-page)
+ - [gux-tag-popover-beta](../../../beta/gux-tag-popover)
 
 ### Depends on
 
@@ -42,6 +43,7 @@ Type: `Promise<boolean>`
 graph TD;
   gux-option --> gux-text-highlight
   gux-pagination-items-per-page --> gux-option
+  gux-tag-popover-beta --> gux-option
   style gux-option fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

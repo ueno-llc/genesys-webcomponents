@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gux-tag-beta should render 1`] = `
+<gux-tag-beta>
+  <!---->
+  <div class="gux-tag">
+    <div class="gux-tag-text" tabindex="0"></div>
+    <button class="gux-tag-delete-button" tabindex="0" type="button">
+      <gux-icon class="gux-tag-delete-icon" icon-name="ic-close" screenreader-text="Delete tag"></gux-icon>
+    </button>
+  </div>
+</gux-tag-beta>
+`;
