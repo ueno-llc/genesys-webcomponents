@@ -247,6 +247,7 @@
     "events": { "update": "slider value changed" }
   },
   "gux-spin-button": {},
+  "gux-summary-palette": {},
   "gux-switch": {
     "attributes": { "selected-value": "text" },
     "events": { "selectionChanged": "switch state was changed" }

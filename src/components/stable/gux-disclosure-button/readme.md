@@ -23,6 +23,10 @@ This is a UI button component that is used to open or dismiss an associated pane
 
 ## Dependencies
 
+### Used by
+
+ - [gux-summary-palette-beta](../../beta/gux-summary-palette)
+
 ### Depends on
 
 - [gux-icon](../gux-icon)
@@ -31,6 +35,7 @@ This is a UI button component that is used to open or dismiss an associated pane
 ```mermaid
 graph TD;
   gux-disclosure-button --> gux-icon
+  gux-summary-palette-beta --> gux-disclosure-button
   style gux-disclosure-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

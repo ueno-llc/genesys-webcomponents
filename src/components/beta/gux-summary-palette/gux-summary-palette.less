@@ -1,0 +1,124 @@
+// Variables part
+
+gux-summary-palette-beta {
+  .gux-summary-palette {
+    background-color: @gux-off-white-bg-2;
+    
+  }
+  .gux-summary-palette-info {
+    padding: 0 48px;
+  }
+  .title {
+    padding-left: 16px;
+    font-weight: 100;
+    position: fixed;
+    background-color: @gux-off-white-bg-2;
+    width: 255px;
+    height: 40px;
+    margin-top: 0;
+    padding-top: 15px;
+  }
+  gux-accordion {
+    .gux-accordion {
+      padding-top: 55px;
+      background-color: inherit!important;
+      width: 272px;
+
+      .section .content {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+  gux-disclosure-button {
+    .disclosure-panel {
+      overflow-x: scroll;
+    }
+  }
+
+  .gux-summary-palette-section-option-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+
+  .gux-summary-palette-section-option,
+  .gux-summary-palette-section-deleted-option {
+    margin: 0;
+    padding: 5px 0;
+    width: 100%;
+    display: flow-root;
+  }
+
+  .icon-row {
+    position: relative;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+  }
+
+  .delete-icon,
+  .undo-icon {
+    cursor: pointer;
+    margin-right: 5px;
+    color: @gux-icons;
+    position: absolute;
+
+    &:hover {
+      color: @gux-dark-blue;
+    }
+  }
+
+  .gux-summary-palette-section-deleted-option {
+    color: @gux-grey-2;
+    opacity: .5;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 170px;
+    text-overflow: ellipsis;
+
+    .icon-row {
+      margin-right: 8px;
+    }
+  }
+
+  .undo-icon {
+    color: @gux-grey-2;
+  }
+
+  .options-row > div {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px 0;
+  }
+}
+
+// Theming
+// Light
+.gux-summary-palette-light-theme {
+}
+.gux-light-theme {
+  gux-summary-palette-beta {
+    .gux-summary-palette-light-theme();
+  }
+}
+gux-summary-palette-beta.gux-light-theme {
+  .gux-summary-palette-light-theme();
+}
+// Dark
+.gux-summary-palette-dark-theme {
+}
+.gux-dark-theme {
+  gux-summary-palette-beta {
+    .gux-summary-palette-dark-theme();
+  }
+}
+gux-summary-palette-beta.gux-dark-theme {
+  .gux-summary-palette-dark-theme();
+}
+// Default
+gux-summary-palette-beta {
+  .gux-summary-palette-light-theme();
+}

@@ -47,6 +47,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [gux-summary-palette-beta](../../beta/gux-summary-palette)
+
 ### Depends on
 
 - [gux-icon](../gux-icon)
@@ -55,6 +59,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   gux-accordion --> gux-icon
+  gux-summary-palette-beta --> gux-accordion
   style gux-accordion fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
